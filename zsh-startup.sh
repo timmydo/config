@@ -22,11 +22,11 @@ source "$HOME/.fzf/shell/key-bindings.zsh"
 #setup kubectx, kubens
 if  [ ! -d "$HOME/.kubectx" ]; then
   git clone https://github.com/ahmetb/kubectx.git ~/.kubectx \
-  && mkdir -p ~/bin \ 
+  && mkdir -p ~/bin \
   && cp ~/.kubectx/kubectx ~/bin/ \
   && cp ~/.kubectx/kubens ~/bin/ \
   && chmod 755 ~/bin/kubectx \
-  && chmod 755 ~/bin/kubens \
+  && chmod 755 ~/bin/kubens
 fi
 
 #setup stern
@@ -37,7 +37,7 @@ fi
 
 #setup kubectl
 if  [ ! -x "$HOME/bin/kubectl" ]; then
-  curl -LO -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
+  curl -L -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl \
   && chmod 755 ~/bin/kubectl
 fi
 
@@ -108,7 +108,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker kubectl)
+plugins=(docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,6 +138,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias lal='ls -al'
+alias ll='ls -l'
 alias k=kubectl
 alias ksn='kubectl get nodes | sed 1d | fzf +m | awk '\''{print $1}'\'''
 alias ksp='kubectl get pods | sed 1d | fzf +m | awk '\''{print $1}'\'''
