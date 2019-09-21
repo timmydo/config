@@ -19,20 +19,24 @@ fi
 source "/$HOME/.fzf/shell/completion.zsh" 2> /dev/null
 source "$HOME/.fzf/shell/key-bindings.zsh"
 
+#setup kubectx, kubens
 if  [ ! -d "$HOME/.kubectx" ]; then
-  git clone https://github.com/ahmetb/kubectx.git ~/.kubectx
-  mkdir -p ~/bin
-  ln -s ~/.kubectx/completion/kubectx.zsh ~/.oh-my-zsh/completions/_kubectx.zsh
-  ln -s ~/.kubectx/completion/kubens.zsh ~/.oh-my-zsh/completions/_kubens.zsh
-  cp ~/.kubectx/kubectx ~/bin/
-  cp ~/.kubectx/kubens ~/bin/
-  chmod 755 ~/bin/kubectx
-  chmod 755 ~/bin/kubens
+  git clone https://github.com/ahmetb/kubectx.git ~/.kubectx \
+  && mkdir -p ~/bin \ 
+  && cp ~/.kubectx/kubectx ~/bin/ \
+  && cp ~/.kubectx/kubens ~/bin/ \
+  && chmod 755 ~/bin/kubectx \
+  && chmod 755 ~/bin/kubens \
 fi
 
+#setup stern
+if  [ ! -x "$HOME/bin/stern" ]; then
+  curl -L -o ~/bin/stern https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 \
+  && chmod 755 ~/bin/stern
+fi
 
 # Path to your oh-my-zsh installation.
-export ZSH="~/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
