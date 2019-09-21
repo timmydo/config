@@ -1,8 +1,38 @@
+#!/usr/bin/env zsh
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+if  [ ! -d "$HOME/.oh-my-zsh" ]; then
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+fi
+
+if  [ ! -d "$HOME/.fzf" ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --no-update-rc
+fi
+
+
+# setup fzf
+if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
+fi
+source "/$HOME/.fzf/shell/completion.zsh" 2> /dev/null
+source "$HOME/.fzf/shell/key-bindings.zsh"
+
+if  [ ! -d "$HOME/.kubectx" ]; then
+  git clone https://github.com/ahmetb/kubectx.git ~/.kubectx
+  mkdir -p ~/bin
+  ln -s ~/.kubectx/completion/kubectx.zsh ~/.oh-my-zsh/completions/_kubectx.zsh
+  ln -s ~/.kubectx/completion/kubens.zsh ~/.oh-my-zsh/completions/_kubens.zsh
+  cp ~/.kubectx/kubectx ~/bin/
+  cp ~/.kubectx/kubens ~/bin/
+  chmod 755 ~/bin/kubectx
+  chmod 755 ~/bin/kubens
+fi
+
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/timmy/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -50,7 +80,7 @@ ZSH_THEME="frisk"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -98,7 +128,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias k=kubectl
+
+git config --global include.path $HOME/config/gitalias.txt
 
 fd() {
   local dir
