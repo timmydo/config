@@ -35,6 +35,12 @@ if  [ ! -x "$HOME/bin/stern" ]; then
   && chmod 755 ~/bin/stern
 fi
 
+#setup kubectl
+if  [ ! -x "$HOME/bin/kubectl" ]; then
+  curl -LO -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
+  && chmod 755 ~/bin/kubectl
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -133,6 +139,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias k=kubectl
+alias ksn='kubectl get nodes | sed 1d | fzf +m | awk '\''{print $1}'\'''
+alias ksp='kubectl get pods | sed 1d | fzf +m | awk '\''{print $1}'\'''
 
 git config --global include.path $HOME/config/gitalias.txt
 
