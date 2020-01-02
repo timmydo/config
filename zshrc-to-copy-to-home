@@ -1,1 +1,1 @@
-source $HOME/config/zsh-startup.sh
+source $HOME/.config/zsh-startup.sh
