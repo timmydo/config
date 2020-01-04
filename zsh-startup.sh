@@ -146,7 +146,7 @@ alias ksn='kubectl get nodes | sed 1d | fzf +m | awk '\''{print $1}'\'''
 alias ksp='kubectl get pods | sed 1d | fzf +m | awk '\''{print $1}'\'''
 alias krmevicted='kubectl get po | grep Evicted| awk '\''{print $1}'\''| xargs -n 1 kubectl delete pod'
 
-git config --global include.path $HOME/config/gitalias.txt
+git config --global include.path $HOME/.config/gitalias.txt
 
 fd() {
   local dir
