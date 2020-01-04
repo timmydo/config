@@ -1,3 +1,14 @@
+[user]
+    name = Timmy Douglas
+    email = mail@timmydouglas.com
+
+[sendemail]
+    smtpencryption = tls
+    smtpserver = smtp.mxes.net
+    smtpserverport = 443
+    smtpuser = mail@timmydouglas.com
+    smtpserverport = 587
+
 [alias]
     c = commit
     co = checkout
