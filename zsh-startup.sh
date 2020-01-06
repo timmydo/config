@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/go/bin:/usr/local/bin:$PATH
 export EDITOR=emacs
 
 if  [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -139,13 +139,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias lal='ls -al'
-alias ll='ls -l'
-alias k=kubectl
-alias ksn='kubectl get nodes | sed 1d | fzf +m | awk '\''{print $1}'\'''
-alias ksp='kubectl get pods | sed 1d | fzf +m | awk '\''{print $1}'\'''
-alias krmevicted='kubectl get po | grep Evicted| awk '\''{print $1}'\''| xargs -n 1 kubectl delete pod'
-alias www='swaymsg exec -- epiphany --new-window'
+
+source ~/.config/aliases.sh
 git config --global include.path $HOME/.config/gitalias.txt
 
 fd() {
@@ -206,6 +201,16 @@ fbr() {
 z() {
   local dir
   dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+_fzf_complete_pass() {
+  _fzf_complete '+m' "$@" < <(
+    pwdir=${PASSWORD_STORE_DIR-~/.password-store/}
+    stringsize="${#pwdir}"
+    find "$pwdir" -name "*.gpg" -print |
+        cut -c "$((stringsize + 1))"-  |
+        sed -e 's/\(.*\)\.gpg/\1/'
+  )
 }
 
 
