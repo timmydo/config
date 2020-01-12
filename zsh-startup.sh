@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/go/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/go/bin:/usr/local/go/bin:/usr/local/bin:$PATH
 export EDITOR=emacs
 
 if  [ ! -d "$HOME/.oh-my-zsh" ]; then
