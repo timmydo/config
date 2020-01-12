@@ -1,4 +1,4 @@
-
+(setq make-backup-files nil)
 (global-set-key "\C-k" 'kill-whole-line)
 
 

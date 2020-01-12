@@ -2,7 +2,7 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/go/bin:/usr/local/go/bin:/usr/local/bin:$PATH
 export EDITOR=emacs
-
+export MOZ_ENABLE_WAYLAND=1
 if  [ ! -d "$HOME/.oh-my-zsh" ]; then
   git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
