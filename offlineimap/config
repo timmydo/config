@@ -1,0 +1,63 @@
+[general]
+accounts = timmydouglascom,timmydinfo,gmail
+pythonfile = ~/.config/offlineimap/helpers.py
+
+[Account timmydouglascom]
+localrepository = timmydouglascom-local
+remoterepository = timmydouglascom-remote
+
+[Repository timmydouglascom-local]
+type = Maildir
+localfolders = ~/mail/timmydouglascom
+
+[Repository timmydouglascom-remote]
+type = IMAP
+remotehost = mail.mxes.net
+remoteuser = mail@timmydouglas.com
+remotepasseval = get_pass('tuffmail')
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+
+
+[Account timmydinfo]
+localrepository = timmydinfo-local
+remoterepository = timmydinfo-remote
+
+[Repository timmydinfo-local]
+type = Maildir
+localfolders = ~/mail/timmydinfo
+
+[Repository timmydinfo-remote]
+type = IMAP
+remotehost = outlook.office365.com
+remoteuser = timmy@timmyd.info
+remotepasseval = get_pass('timmydinfoimap')
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+folderfilter = lambda foldername: foldername in [
+    'INBOX',
+    'Archive',
+    'Sent',
+    'Trash',
+    ]
+
+[Account gmail]
+localrepository = gmail-local
+remoterepository = gmail-remote
+
+[Repository gmail-local]
+type = GmailMaildir
+localfolders = ~/mail/gmail
+
+[Repository gmail-remote]
+type = Gmail
+remoteuser = timmyd983@gmail.com
+remotepasseval = get_pass('gmailimap')
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+folderfilter = lambda foldername: foldername in [
+    'INBOX',
+    'Archive',
+    'Sent',
+    'Trash',
+    ]
