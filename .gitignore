@@ -1,5 +1,6 @@
 aerc/accounts.conf
 *~
+*.pyc
 user-dirs.*
 xfce4/
 pulse/
