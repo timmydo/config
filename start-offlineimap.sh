@@ -1,4 +1,4 @@
 #!/bin/sh
-systemctl start --user offlineimap@timmydouglascom.service
-systemctl start --user offlineimap@timmydinfo.service     
-systemctl start --user offlineimap@gmail.service     
+systemctl start --user offlineimap-oneshot@timmydouglascom.timer
+systemctl start --user offlineimap-oneshot@timmydinfo.timer     
+systemctl start --user offlineimap-oneshot@gmail.timer     
