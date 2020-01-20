@@ -1,5 +1,22 @@
 (setq make-backup-files nil)
 (global-set-key "\C-k" 'kill-whole-line)
+(global-set-key (kbd "C-s") 'swiper)  ;; replaces i-search with swiper
+(global-set-key (kbd "M-x") 'counsel-M-x) ;; Gives M-x command counsel features
+(global-set-key (kbd "C-x C-f") 'counsel-find-file) ;; gives C-x C-f counsel features
+(global-set-key (kbd "C-x f") 'counsel-file-jump) ;; gives C-x C-f counsel features
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag) ;; add counsel/ivy features to ag package
+(global-set-key (kbd "C-x l") 'counsel-locate)
+
+
 
 
 (require 'package)
@@ -27,7 +44,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package))))
+    (ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -36,3 +53,7 @@ There are two things you can do about this warning:
  )
 
 (load "~/.config/emacs.d/lsp-mode-init.el")
+
+
+(ivy-mode 1)
+(whitespace-mode 1)
