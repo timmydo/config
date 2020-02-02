@@ -1,4 +1,21 @@
 (setq make-backup-files nil)
+(global-display-line-numbers-mode)
+(menu-bar-mode -1)
+					;(tool-bar-mode -1)
+
+(unless window-system
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (global-set-key [mouse-4] (lambda ()
+                              (interactive)
+                              (scroll-down 1)))
+  (global-set-key [mouse-5] (lambda ()
+                              (interactive)
+                              (scroll-up 1)))
+  (defun track-mouse (e))
+  (setq mouse-sel-mode t)
+)
+
 (global-set-key "\C-k" 'kill-whole-line)
 (global-set-key (kbd "C-s") 'swiper)  ;; replaces i-search with swiper
 (global-set-key (kbd "M-x") 'counsel-M-x) ;; Gives M-x command counsel features
