@@ -1,0 +1,11 @@
+[Unit]
+Description=Notmuch new
+Documentation=man:notmuch(1)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/notmuch new
+TimeoutStopSec=120
+
+[Install]
+WantedBy=default.target
