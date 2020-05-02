@@ -60,8 +60,7 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package))))
+   '(magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

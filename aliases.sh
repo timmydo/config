@@ -7,3 +7,4 @@ alias krmevicted='kubectl get po | grep Evicted| awk '\''{print $1}'\''| xargs -
 alias www='swaymsg exec -- epiphany --new-window'
 alias ipa='ip -br -color a'
 alias ipl='ip -br -color link'
+alias dfh='df -h -x squashfs -x tmpfs -x devtmpfs'
