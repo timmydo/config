@@ -33,34 +33,12 @@
 (global-set-key (kbd "C-c k") 'counsel-ag) ;; add counsel/ivy features to ag package
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
-(setq notmuch-folders '(("inbox" . "tag:inbox")
-			("tome" . "tag:inbox and (tag:to-me or tag:friends)")
-			("btrfs" . "tag:btrfs")
-			("emacs-devel" . "tag:emacs-devel")
-			
-			))
 
-(setq notmuch-saved-searches '((:name "inbox"
-                                      :query "tag:inbox"
-                                      :count-query "tag:inbox and tag:unread"
-                                      :sort-order oldest-first)
-			       (:name "btrfs"
-                                      :query "tag:btrfs and tag:inbox"
-                                      :sort-order oldest-first)
-			       (:name "emacs-devel"
-                                      :query "tag:emacs-devel and tag:inbox"
-                                      :sort-order oldest-first)
-			       (:name "friend"
-                                      :query "tag:friend and tag:inbox"
-                                      :sort-order oldest-first)
-
-			       ))
 
 
 (require 'package)
 (add-to-list 'package-archives
      	     '("melpa" . "https://melpa.org/packages/") t)
-  (package-initialize)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -68,7 +46,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package))))
+    (spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -76,8 +54,58 @@
  ;; If there is more than one, they won't work right.
  )
 
+
+(package-initialize)
+
+
 (load "~/.config/emacs.d/lsp-mode-init.el")
 
 
 (ivy-mode 1)
 (whitespace-mode 1)
+
+(setq notmuch-saved-searches '(
+			       (:name "all"
+                                      :query "*"
+				      :sort-order newest-first
+				      :key "a")
+			       (:name "inbox"
+                                      :query "tag:inbox and tag:unread and not (tag:btrfs or tag:emacs-devel tag:from-me)"
+				      :key "i")
+			       (:name "sent"
+                                      :query "tag:from-me"
+				      :sort-order newest-first
+				      :key "s")
+			       (:name "draft"
+                                      :query "tag:draft"
+				      :sort-order newest-first
+				      :key "d")
+			       (:name "btrfs"
+                                      :query "tag:btrfs and tag:unread"
+				      :key "b")
+			       (:name "emacs-devel"
+                                      :query "tag:emacs-devel and tag:unread"
+				      :key "e")
+			       (:name "friend"
+                                      :query "tag:friend and tag:unread"
+				      :sort-order newest-first
+				      :key "f")
+			       ))
+
+
+
+(setq mail-host-address "timmydouglas.com")
+(setq user-full-name "Timmy Douglas")
+(setq user-mail-address "mail@timmydouglas.com")
+
+(setq send-mail-function 'smtpmail-send-it)
+(setq message-send-mail-function 'smtpmail-send-it)
+
+(setq send-mail-function    'smtpmail-send-it
+          smtpmail-smtp-server  "smtp.mxes.net"
+          smtpmail-stream-type  'ssl
+          smtpmail-smtp-service 465)
+(defun my-message-mode-setup ()
+       (setq fill-column 72)
+       (turn-on-auto-fill))
+(add-hook 'message-mode-hook 'my-message-mode-setup)
