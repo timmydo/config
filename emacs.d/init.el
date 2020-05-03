@@ -70,7 +70,7 @@
 				      :sort-order newest-first
 				      :key "a")
 			       (:name "inbox"
-                                      :query "tag:inbox and tag:unread and not (tag:btrfs or tag:emacs-devel tag:from-me)"
+                                      :query "tag:inbox and tag:unread and not (tag:list or tag:from-me)"
 				      :key "i")
 			       (:name "sent"
                                       :query "tag:from-me"
