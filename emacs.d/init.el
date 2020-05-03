@@ -33,7 +33,28 @@
 (global-set-key (kbd "C-c k") 'counsel-ag) ;; add counsel/ivy features to ag package
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
+(setq notmuch-folders '(("inbox" . "tag:inbox")
+			("tome" . "tag:inbox and (tag:to-me or tag:friends)")
+			("btrfs" . "tag:btrfs")
+			("emacs-devel" . "tag:emacs-devel")
+			
+			))
 
+(setq notmuch-saved-searches '((:name "inbox"
+                                      :query "tag:inbox"
+                                      :count-query "tag:inbox and tag:unread"
+                                      :sort-order oldest-first)
+			       (:name "btrfs"
+                                      :query "tag:btrfs and tag:inbox"
+                                      :sort-order oldest-first)
+			       (:name "emacs-devel"
+                                      :query "tag:emacs-devel and tag:inbox"
+                                      :sort-order oldest-first)
+			       (:name "friend"
+                                      :query "tag:friend and tag:inbox"
+                                      :sort-order oldest-first)
+
+			       ))
 
 
 (require 'package)

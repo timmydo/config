@@ -2,3 +2,10 @@
 +btrfs +list -- linux-btrfs@vger.kernel.org
 +emacs-devel +list -- emacs-devel@gnu.org
 -inbox -- tag:list
++to-me -- to:timmy@timmyd.info
++to-me -- to:mail@timmydouglas.com
++to-me -- to:timmyd983@gmail.com
++from-me -- from:timmy@timmyd.info
++from-me -- from:mail@timmydouglas.com
++from-me -- from:timmyd983@gmail.com
++patch -- subject:PATCH
