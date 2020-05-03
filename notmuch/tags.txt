@@ -1,0 +1,4 @@
++friend +james -- james.route
++btrfs +list -- linux-btrfs@vger.kernel.org
++emacs-devel +list -- emacs-devel@gnu.org
+-inbox -- tag:list

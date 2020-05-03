@@ -4,7 +4,7 @@ Documentation=man:notmuch(1)
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/notmuch new
+ExecStart=/home/timmy/.config/notmuch/new.sh
 TimeoutStopSec=120
 
 [Install]
