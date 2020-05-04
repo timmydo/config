@@ -83,6 +83,9 @@
 			       (:name "btrfs"
                                       :query "tag:btrfs and tag:unread"
 				      :key "b")
+			       (:name "notmuch"
+                                      :query "tag:notmuch and tag:unread"
+				      :key "n")
 			       (:name "emacs-devel"
                                       :query "tag:emacs-devel and tag:unread"
 				      :key "e")

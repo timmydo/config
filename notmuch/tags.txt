@@ -1,6 +1,7 @@
 +friend +james -- james.route
 +btrfs +list -- linux-btrfs@vger.kernel.org
 +emacs-devel +list -- emacs-devel@gnu.org
++notmuch +list -- notmuch@notmuchmail.org
 -inbox -- tag:list
 +to-me -- to:timmy@timmyd.info
 +to-me -- to:mail@timmydouglas.com
