@@ -76,10 +76,6 @@
                                       :query "tag:from-me"
 				      :sort-order newest-first
 				      :key "s")
-			       (:name "draft"
-                                      :query "tag:draft"
-				      :sort-order newest-first
-				      :key "d")
 			       (:name "btrfs"
                                       :query "tag:btrfs and tag:inbox")
 			       (:name "rss"
