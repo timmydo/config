@@ -5,7 +5,7 @@
 
 (unless window-system
   (require 'mouse)
-  (xterm-mouse-mode t)
+  (xterm-mouse-mode 0)
   (global-set-key [mouse-4] (lambda ()
                               (interactive)
                               (scroll-down 1)))
@@ -13,7 +13,7 @@
                               (interactive)
                               (scroll-up 1)))
   (defun track-mouse (e))
-  (setq mouse-sel-mode t)
+  (setq mouse-sel-mode nil)
 )
 
 (global-set-key "\C-k" 'kill-whole-line)
@@ -70,7 +70,7 @@
 				      :sort-order newest-first
 				      :key "a")
 			       (:name "inbox"
-                                      :query "tag:inbox and tag:unread and not (tag:list or tag:from-me)"
+                                      :query "tag:inbox and not (tag:list or tag:from-me)"
 				      :key "i")
 			       (:name "sent"
                                       :query "tag:from-me"
@@ -81,18 +81,19 @@
 				      :sort-order newest-first
 				      :key "d")
 			       (:name "btrfs"
-                                      :query "tag:btrfs and tag:unread"
-				      :key "b")
+                                      :query "tag:btrfs and tag:inbox")
+			       (:name "rss"
+                                      :query "folder:rss and tag:inbox")
+			       (:name "github"
+                                      :query "folder:github and tag:inbox")
 			       (:name "notmuch"
-                                      :query "tag:notmuch and tag:unread"
+                                      :query "tag:notmuch and tag:inbox"
 				      :key "n")
 			       (:name "emacs-devel"
-                                      :query "tag:emacs-devel and tag:unread"
-				      :key "e")
+                                      :query "tag:emacs-devel and tag:inbox")
 			       (:name "friend"
-                                      :query "tag:friend and tag:unread"
-				      :sort-order newest-first
-				      :key "f")
+                                      :query "tag:friend and tag:inbox"
+				      :sort-order newest-first)
 			       ))
 
 

@@ -2,7 +2,7 @@
 +btrfs +list -- linux-btrfs@vger.kernel.org
 +emacs-devel +list -- emacs-devel@gnu.org
 +notmuch +list -- notmuch@notmuchmail.org
--inbox -- tag:list
++aerc +list -- ~sircmpwn/aerc@lists.sr.ht
 +to-me -- to:timmy@timmyd.info
 +to-me -- to:mail@timmydouglas.com
 +to-me -- to:timmyd983@gmail.com
