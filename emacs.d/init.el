@@ -70,7 +70,7 @@
 				      :sort-order newest-first
 				      :key "a")
 			       (:name "inbox"
-                                      :query "tag:inbox and not (tag:list)"
+                                      :query "tag:inbox and not tag:list and not tag:from-me"
 				      :key "i")
 			       (:name "sent"
                                       :query "tag:from-me"
