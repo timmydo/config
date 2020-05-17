@@ -88,7 +88,7 @@
 			       (:name "emacs-devel"
                                       :query "tag:emacs-devel and tag:inbox")
 			       (:name "friend"
-                                      :query "tag:friend and tag:inbox"
+                                      :query "tag:friend and tag:inbox and not tag:from-me"
 				      :sort-order newest-first)
 			       ))
 
