@@ -3,8 +3,10 @@
 +emacs-devel +list -- emacs-devel@gnu.org
 +notmuch +list -- notmuch@notmuchmail.org
 +aerc +list -- ~sircmpwn/aerc@lists.sr.ht
++deals +list -- dealalerts@slickdeals.net
 +list -- folder:rss
 +list -- folder:github
++drafts -- folder:drafts
 +to-me -- to:timmy@timmyd.info
 +to-me -- to:mail@timmydouglas.com
 +to-me -- to:timmyd983@gmail.com
