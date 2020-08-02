@@ -78,6 +78,8 @@
 				      :key "s")
 			       (:name "btrfs"
                                       :query "tag:btrfs and tag:inbox")
+			       (:name "git"
+                                      :query "tag:git and tag:inbox")
 			       (:name "rss"
                                       :query "folder:rss and tag:inbox")
 			       (:name "github"

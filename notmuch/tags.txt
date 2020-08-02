@@ -1,5 +1,6 @@
 +friend +james -- james.route
 +btrfs +list -- linux-btrfs@vger.kernel.org
++git +list -- git@vger.kernel.org
 +emacs-devel +list -- emacs-devel@gnu.org
 +notmuch +list -- notmuch@notmuchmail.org
 +aerc +list -- ~sircmpwn/aerc@lists.sr.ht

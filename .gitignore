@@ -3,7 +3,6 @@ aerc/accounts.conf
 *.pyc
 user-dirs.*
 xfce4/
-pulse/
 pmbootstrap.cfg
 nautilus/
 Code/
@@ -17,3 +16,4 @@ gnome-initial-setup-done
 gtk-3.0/
 ibus/
 keepassxc/
+pulse/*.tdb
