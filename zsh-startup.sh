@@ -230,3 +230,5 @@ FZF-EOF"
 [[ -f "$HOME/.cargo/env" ]] && source ~/.cargo/env
 
 eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
+fpath+=${ZDOTDIR:-~}/.config/zsh_functions
+
