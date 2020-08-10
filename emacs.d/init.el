@@ -72,10 +72,10 @@
 			       (:name "inbox"
                                       :query "tag:inbox and not tag:list and not tag:from-me"
 				      :key "i")
-			       (:name "sent"
-                                      :query "tag:from-me"
-				      :sort-order newest-first
-				      :key "s")
+;			       (:name "sent"
+;                                      :query "tag:from-me"
+;				      :sort-order newest-first
+;				      :key "s")
 			       (:name "btrfs"
                                       :query "tag:btrfs and tag:inbox")
 			       (:name "git"
