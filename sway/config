@@ -79,6 +79,11 @@ for_window [app_id="^launcher$"] floating enable, border none, opacity 0.8
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+
+    bindsym $mod+p exec rhythmbox-client --previous
+    bindsym $mod+n exec rhythmbox-client --next
+
 #
 # Moving around:
 #
