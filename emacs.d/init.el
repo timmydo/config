@@ -80,6 +80,8 @@
                                       :query "tag:btrfs and tag:inbox")
 			       (:name "git"
                                       :query "tag:git and tag:inbox")
+			       (:name "golang"
+                                      :query "tag:golang and tag:inbox")
 			       (:name "rss"
                                       :query "folder:rss and tag:inbox")
 			       (:name "github"
