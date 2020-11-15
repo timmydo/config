@@ -1,7 +1,7 @@
 (setq make-backup-files nil)
 (global-display-line-numbers-mode)
 (menu-bar-mode -1)
-					;(tool-bar-mode -1)
+(tool-bar-mode -1)
 
 (unless window-system
   (require 'mouse)
@@ -45,8 +45,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))))
+   '(with-editor elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -78,6 +77,8 @@
 ;				      :key "s")
 			       (:name "btrfs"
                                       :query "tag:btrfs and tag:inbox")
+			       (:name "gemini"
+                                      :query "tag:gemini and tag:inbox")
 			       (:name "git"
                                       :query "tag:git and tag:inbox")
 			       (:name "golang"
@@ -93,9 +94,6 @@
                                       :query "tag:emacs-devel and tag:inbox")
 			       (:name "deals"
                                       :query "tag:deals and tag:inbox")
-			       (:name "friend"
-                                      :query "tag:friend and tag:inbox and not tag:from-me"
-				      :sort-order newest-first)
 			       ))
 
 
@@ -115,3 +113,28 @@
        (setq fill-column 72)
        (turn-on-auto-fill))
 (add-hook 'message-mode-hook 'my-message-mode-setup)
+
+
+(defun eshell/-buffer-as-args (buffer separator command)
+  "Takes the contents of BUFFER, and splits it on SEPARATOR, and
+runs the COMMAND with the contents as arguments. Use an argument
+`%' to substitute the contents at a particular point, otherwise,
+they are appended."
+  (let* ((lines (with-current-buffer buffer
+                  (split-string
+                   (buffer-substring-no-properties (point-min) (point-max))
+                   separator)))
+         (subcmd (if (-contains? command "%")
+                     (-flatten (-replace "%" lines command))
+                   (-concat command lines)))
+         (cmd-str  (string-join subcmd " ")))
+    (message cmd-str)
+    (eshell-command-result cmd-str)))
+
+(defun eshell/bargs (buffer &rest command)
+  "Passes the lines from BUFFER as arguments to COMMAND."
+  (eshell/-buffer-as-args buffer "\n" command))
+
+(defun eshell/sargs (buffer &rest command)
+  "Passes the words from BUFFER as arguments to COMMAND."
+  (eshell/-buffer-as-args buffer nil command))

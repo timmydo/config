@@ -1,11 +1,13 @@
-+friend +james -- james.route
 +btrfs +list -- linux-btrfs@vger.kernel.org
 +git +list -- git@vger.kernel.org
 +emacs-devel +list -- emacs-devel@gnu.org
++emacs-devel +list -- emacs@noreply.github.com
 +notmuch +list -- notmuch@notmuchmail.org
 +aerc +list -- ~sircmpwn/aerc@lists.sr.ht
 +deals +list -- dealalerts@slickdeals.net
++deals +list -- deals@da.slickdeals.net
 +golang +list -- golang-nuts@googlegroups.com
++gemini +list -- gemini@lists.orbitalfox.eu
 +list -- folder:rss
 +list -- folder:github
 +drafts -- folder:drafts

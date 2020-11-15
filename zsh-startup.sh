@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/go/bin:/usr/local/go/bin:/usr/local/bin:$PATH
-export EDITOR=emacs
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/go/bin:/usr/local/go/bin:/usr/local/bin:$PATH
+export EDITOR="emacsclient -nc"
 export MOZ_ENABLE_WAYLAND=1
 export XDG_CONFIG_HOME=$HOME/.config
 export QT_QPA_PLATFORM=wayland
