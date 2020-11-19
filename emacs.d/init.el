@@ -33,7 +33,17 @@
 (global-set-key (kbd "C-c k") 'counsel-ag) ;; add counsel/ivy features to ag package
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
+(global-set-key (kbd "<f5>") 'deadgrep)
 
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(defun org-timmy ()
+  (interactive)
+  (find-file "~/.config/my.org"))
+
+(global-set-key (kbd "C-c o") 'org-timmy)
 
 
 (require 'package)
@@ -44,8 +54,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(with-editor elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
+   '(deadgrep rg with-editor elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

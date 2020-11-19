@@ -9,7 +9,7 @@ gh() {
 
 fm "https://www.phoronix.com/rss.php"
 fm "https://lwn.net/headlines/rss"
-fm "https://timmydouglas.com/feed.xml"
+fm "https://timmydouglas.com/post/index.xml"
 fm "https://news.ycombinator.com/rss"
 fm "https://drewdevault.com/feed.xml"
 fm "https://emersion.fr/blog/rss.xml"
