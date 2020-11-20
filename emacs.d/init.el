@@ -151,3 +151,9 @@ they are appended."
 (defun eshell/sargs (buffer &rest command)
   "Passes the words from BUFFER as arguments to COMMAND."
   (eshell/-buffer-as-args buffer nil command))
+
+(put 'kill-region 'interactive-form      
+     '(interactive
+       (if (use-region-p)
+           (list (region-beginning) (region-end))
+         (list (line-beginning-position) (line-beginning-position 2)))))
