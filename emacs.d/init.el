@@ -41,10 +41,12 @@
 
 (defun org-timmy ()
   (interactive)
-  (find-file "~/.config/my.org"))
+  (find-file "~/org/home.org"))
 
 (global-set-key (kbd "C-c o") 'org-timmy)
+(setq org-agenda-files (list "~/org/home.org"))
 
+(setq exec-path '("/home/timmy/.cargo/bin" "/home/timmy/bin" "/home/timmy/go/bin" "/usr/local/go/bin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/home/timmy/.fzf/bin" "/usr/local/libexec/emacs/28.0.50/x86_64-pc-linux-gnu"))
 
 (require 'package)
 (add-to-list 'package-archives
