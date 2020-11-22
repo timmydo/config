@@ -44,7 +44,7 @@
   (find-file "~/org/home.org"))
 
 (global-set-key (kbd "C-c o") 'org-timmy)
-(setq org-agenda-files (list "~/org/home.org"))
+(setq org-agenda-files (list "~/org"))
 
 (setq exec-path '("/home/timmy/.cargo/bin" "/home/timmy/bin" "/home/timmy/go/bin" "/usr/local/go/bin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/home/timmy/.fzf/bin" "/usr/local/libexec/emacs/28.0.50/x86_64-pc-linux-gnu"))
 
@@ -56,9 +56,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(deadgrep rg with-editor elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
+   '(zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -71,6 +70,17 @@
 
 
 (load "~/.config/emacs.d/lsp-mode-init.el")
+
+;; use variable-pitch fonts for some headings and titles
+(setq zenburn-use-variable-pitch t)
+
+;; scale headings in org-mode
+(setq zenburn-scale-org-headlines t)
+
+;; scale headings in outline-mode
+(setq zenburn-scale-outline-headlines t)
+
+(load-theme 'zenburn t)
 
 
 (ivy-mode 1)
