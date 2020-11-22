@@ -57,7 +57,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
+   '(doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -85,6 +85,7 @@
 
 (ivy-mode 1)
 (whitespace-mode 1)
+
 
 (setq notmuch-saved-searches '(
 			       (:name "all"
@@ -167,3 +168,8 @@ they are appended."
        (if (use-region-p)
            (list (region-beginning) (region-end))
          (list (line-beginning-position) (line-beginning-position 2)))))
+
+
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+
