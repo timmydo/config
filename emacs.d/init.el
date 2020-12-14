@@ -346,6 +346,9 @@ they are appended."
 
 (global-set-key (kbd "<f5>") 'deadgrep)
 
+(global-set-key (kbd "<C-tab>") 'tab-next)
+(global-set-key (kbd "<C-iso-lefttab>") 'tab-previous)
+
 (windmove-default-keybindings 'control)
 
 ;;
