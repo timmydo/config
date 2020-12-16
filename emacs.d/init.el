@@ -19,7 +19,7 @@
 
 
 (unless (eq system-type 'windows-nt)
-  (setq exec-path '("/home/timmy/.cargo/bin" "/home/timmy/bin" "/home/timmy/go/bin" "/usr/local/go/bin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/home/timmy/.fzf/bin" "/usr/local/libexec/emacs/28.0.50/x86_64-pc-linux-gnu")))
+  (setq exec-path '("/home/timmy/.cargo/bin" "/home/timmy/bin" "/home/timmy/.local/bin" "/home/timmy/go/bin" "/usr/local/go/bin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/home/timmy/.fzf/bin" "/usr/local/libexec/emacs/28.0.50/x86_64-pc-linux-gnu")))
 
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -32,7 +32,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
+   '(ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -262,7 +262,14 @@
   :config
   (setf epa-pinentry-mode 'loopback))
 
+(use-package python-mode
+  :custom (python-shell-interpreter "python3"))
 
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
+(setq ccls-executable "~/.guix-profile/bin/ccls")
 
 (defun eshell/-buffer-as-args (buffer separator command)
   "Takes the contents of BUFFER, and splits it on SEPARATOR, and
@@ -351,6 +358,11 @@ they are appended."
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
 (global-set-key (kbd "<f5>") 'deadgrep)
+(global-set-key (kbd "<f12>") (lambda () (interactive) (kill-buffer (current-buffer))))
+(global-set-key (kbd "<f11>") (lambda () (interactive) (bury-buffer)))
+
+(global-set-key (kbd "<pause>") 'mode-line-other-buffer)
+(global-set-key (kbd "M-o") 'mode-line-other-buffer)
 
 (global-set-key (kbd "<C-tab>") 'tab-next)
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-previous)
