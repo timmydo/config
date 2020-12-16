@@ -335,6 +335,25 @@ they are appended."
 
 
 
+(require 'recentf)
+
+;; get rid of `find-file-read-only' and replace it with something
+;; more useful.
+(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+
+;; enable recent files mode.
+(recentf-mode t)
+
+; 50 files ought to be enough.
+(setq recentf-max-saved-items 50)
+
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
+
 ;;
 ;; Global key bindings
 ;;
@@ -345,6 +364,7 @@ they are appended."
 (global-set-key (kbd "M-x") 'counsel-M-x) ;; Gives M-x command counsel features
 (global-set-key (kbd "C-x C-f") 'counsel-find-file) ;; gives C-x C-f counsel features
 (global-set-key (kbd "C-x f") 'counsel-file-jump) ;; gives C-x C-f counsel features
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
@@ -357,9 +377,11 @@ they are appended."
 (global-set-key (kbd "C-c k") 'counsel-ag) ;; add counsel/ivy features to ag package
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
+(global-set-key (kbd "<f1>") 'eshell)
 (global-set-key (kbd "<f5>") 'deadgrep)
-(global-set-key (kbd "<f12>") (lambda () (interactive) (kill-buffer (current-buffer))))
+(global-set-key (kbd "<f10>") 'magit-status)
 (global-set-key (kbd "<f11>") (lambda () (interactive) (bury-buffer)))
+(global-set-key (kbd "<f12>") (lambda () (interactive) (kill-buffer (current-buffer))))
 
 (global-set-key (kbd "<pause>") 'mode-line-other-buffer)
 (global-set-key (kbd "M-o") 'mode-line-other-buffer)
