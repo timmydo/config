@@ -380,10 +380,10 @@ they are appended."
 (global-set-key (kbd "<f1>") 'eshell)
 (global-set-key (kbd "<f2>") 'recompile)
 (global-set-key (kbd "<f5>") 'deadgrep)
-(global-set-key (kbd "<f6>") 'which-key-show-top-level)
+(global-set-key (kbd "<f6>") 'counsel-git)
 (global-set-key (kbd "<f10>") 'magit-status)
 (global-set-key (kbd "<f11>") 'bury-buffer)
-(global-set-key (kbd "<f12>") (lambda () (interactive) (kill-buffer (current-buffer))))
+(global-set-key (kbd "<f12>") 'delete-other-windows)
 
 (global-set-key (kbd "<pause>") 'mode-line-other-buffer)
 (global-set-key (kbd "M-o") 'mode-line-other-buffer)
