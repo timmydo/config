@@ -379,8 +379,9 @@ they are appended."
 
 (global-set-key (kbd "<f1>") 'eshell)
 (global-set-key (kbd "<f5>") 'deadgrep)
+(global-set-key (kbd "<f6>") 'which-key-show-top-level)
 (global-set-key (kbd "<f10>") 'magit-status)
-(global-set-key (kbd "<f11>") (lambda () (interactive) (bury-buffer)))
+(global-set-key (kbd "<f11>") 'bury-buffer)
 (global-set-key (kbd "<f12>") (lambda () (interactive) (kill-buffer (current-buffer))))
 
 (global-set-key (kbd "<pause>") 'mode-line-other-buffer)
