@@ -1,0 +1,52 @@
+general {
+        output_format = "none"
+        colors = true
+        interval = 20
+}
+
+order += "cpu_temperature 0"
+order += "load"
+order += "memory"
+order += "disk /"
+order += "tztime local"
+
+wireless wlan0 {
+        format_up = "W: (%quality at %essid, %bitrate) %ip"
+        format_down = "W: down"
+}
+
+ethernet enp5s0 {
+        format_up = "E: %ip"
+        format_down = "E: down"
+}
+
+
+tztime local {
+        format = "%A %Y-%m-%d %l:%M %p"
+#        hide_if_equals_localtime = true
+}
+
+
+load {
+     format = "CPU %1min, %5min, %15min ]"
+}
+
+cpu_temperature 0 {
+        format = "T: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input"
+}
+
+memory {
+        format = "MEM %used/%total"
+        threshold_degraded = "10%"
+        format_degraded = "FREE: %free"
+}
+
+disk "/" {
+        format = "/ %free free"
+}
+
+read_file uptime {
+        path = "/proc/uptime"
+}
+

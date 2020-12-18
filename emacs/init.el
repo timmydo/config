@@ -19,7 +19,7 @@
 
 
 (unless (eq system-type 'windows-nt)
-  (setq exec-path '("/home/timmy/.cargo/bin" "/home/timmy/bin" "/home/timmy/.local/bin" "/home/timmy/go/bin" "/usr/local/go/bin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/home/timmy/.fzf/bin" "/usr/local/libexec/emacs/28.0.50/x86_64-pc-linux-gnu")))
+  (setq exec-path '("/home/timmy/.cargo/bin" "/home/timmy/bin" "/home/timmy/.local/bin" "/home/timmy/.guix-profile/bin" "/home/timmy/go/bin" "/usr/local/go/bin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/home/timmy/.fzf/bin" "/usr/local/libexec/emacs/28.0.50/x86_64-pc-linux-gnu")))
 
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
