@@ -399,6 +399,23 @@ INITIAL-INPUT can be given as the initial minibuffer input."
   (message buffer-file-name)
   (kill-new buffer-file-name))
 
+(defun timmy/kill-buffer-path ()
+  "add the current file name to the kill ring"
+  (interactive)
+  (let ((d (directory-file-name (file-name-directory (or (buffer-file-name) default-directory)))))
+    (message d)
+    (kill-new d)))
+  
+
+(defun timmy/eshell ()
+  "add the current file name to the kill ring"
+  (interactive)
+  (let ((fn (directory-file-name (file-name-directory (or (buffer-file-name) default-directory)))))
+    (with-current-buffer "*eshell*"
+      (cd fn)
+      (eshell-emit-prompt))
+    (eshell)))
+
 ;;
 ;; Global key bindings
 ;;
@@ -422,7 +439,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "C-c k") 'counsel-ag) ;; add counsel/ivy features to ag package
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
-(global-set-key (kbd "<f1>") 'eshell)
+(global-set-key (kbd "<f1>") 'timmy/eshell)
 (global-set-key (kbd "<f2>") 'recompile)
 (global-set-key (kbd "<f5>") 'deadgrep)
 (global-set-key (kbd "<f6>") 'counsel-git)
@@ -570,6 +587,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
                                       :query "tag:btrfs and tag:inbox")
 			       (:name "gemini"
                                       :query "tag:gemini and tag:inbox")
+			       (:name "guix"
+                                      :query "tag:guix and tag:inbox")
 			       (:name "git"
                                       :query "tag:git and tag:inbox")
 			       (:name "golang"
