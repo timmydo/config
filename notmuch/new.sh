@@ -1,6 +1,6 @@
 #!/bin/sh
 
-nm=/usr/bin/notmuch
+nm=$(which notmuch)
 
 $nm new 2>/dev/null
 
