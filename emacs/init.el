@@ -411,8 +411,6 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 ;; Global key bindings
 ;;
 
-
-(global-set-key "\C-k" 'kill-whole-line)
 (global-set-key (kbd "C-s") 'swiper)  ;; replaces i-search with swiper
 (global-set-key (kbd "M-x") 'counsel-M-x) ;; Gives M-x command counsel features
 (global-set-key (kbd "C-x C-f") 'counsel-find-file) ;; gives C-x C-f counsel features
