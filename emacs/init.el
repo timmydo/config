@@ -210,16 +210,7 @@
   'company
   '(add-to-list 'company-backends #'company-omnisharp))
 
-(use-package zenburn-theme)
-
-;; use variable-pitch fonts for some headings and titles
-(setq zenburn-use-variable-pitch t)
-
-;; scale headings in org-mode
-(setq zenburn-scale-org-headlines t)
-
-;; scale headings in outline-mode
-(setq zenburn-scale-outline-headlines t)
+(use-package solarized-theme)
 
 (load-theme 'solarized-dark t)
 
