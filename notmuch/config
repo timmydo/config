@@ -1,0 +1,21 @@
+# .notmuch-config - Configuration file for the notmuch mail system
+#
+# For more information about notmuch, see https://notmuchmail.org
+
+[database]
+path=/home/timmy/mail
+
+[user]
+name=Timmy Douglas
+primary_email=mail@timmydouglas.com
+other_email=timmy@timmyd.info;timmyd983@gmail.com;
+
+[new]
+tags=unread;inbox;
+ignore=
+
+[search]
+exclude_tags=spam;
+
+[maildir]
+synchronize_flags=true
