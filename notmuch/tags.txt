@@ -9,6 +9,8 @@
 +golang +list -- golang-nuts@googlegroups.com
 +gemini +list -- gemini@lists.orbitalfox.eu
 +guix +list -- help-guix@gnu.org
++guix +list -- guix-devel@gnu.org
++guix +list -- debbugs.gnu.org
 +list -- folder:rss
 +list -- folder:github
 +drafts -- folder:drafts

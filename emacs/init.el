@@ -4,6 +4,9 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+(setenv "GUIX_PROFILE" "/home/timmy/.guix-profile")
+(setenv "GUIX_LOCPATH" "/home/timmy/.guix-profile/lib/locale")
+
 (unless window-system
   (require 'mouse)
   (xterm-mouse-mode 0)
@@ -32,7 +35,28 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel)))
+   '(geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
+ '(safe-local-variable-values
+   '((eval modify-syntax-entry 43 "'")
+     (eval modify-syntax-entry 36 "'")
+     (eval modify-syntax-entry 126 "'")
+     (eval let
+	   ((root-dir-unexpanded
+	     (locate-dominating-file default-directory ".dir-locals.el")))
+	   (when root-dir-unexpanded
+	     (let*
+		 ((root-dir
+		   (expand-file-name root-dir-unexpanded))
+		  (root-dir*
+		   (directory-file-name root-dir)))
+	       (unless
+		   (boundp 'geiser-guile-load-path)
+		 (defvar geiser-guile-load-path 'nil))
+	       (make-local-variable 'geiser-guile-load-path)
+	       (require 'cl-lib)
+	       (cl-pushnew root-dir* geiser-guile-load-path :test #'string-equal))))
+     (eval setq-local guix-directory
+	   (locate-dominating-file default-directory ".dir-locals.el")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -382,7 +406,11 @@ INITIAL-INPUT can be given as the initial minibuffer input."
   :bind (:map eshell-mode-map
 	      ("C-r" . timmy/counsel-eshell-history)))
 
+(use-package geiser)
 
+(use-package notmuch)
+
+(use-package deadgrep)
 
 (defun timmy/kill-buffer-file-name ()
   "add the current file name to the kill ring"
