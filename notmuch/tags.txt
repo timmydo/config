@@ -13,6 +13,7 @@
 +guix +list -- debbugs.gnu.org
 +list -- folder:rss
 +list -- folder:github
++github -- icu@noreply.github.com
 +drafts -- folder:drafts
 +to-me -- to:timmy@timmyd.info
 +to-me -- to:mail@timmydouglas.com

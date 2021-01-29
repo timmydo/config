@@ -473,7 +473,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "<C-tab>") 'tab-next)
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-previous)
 
-(windmove-default-keybindings 'control)
+(global-set-key (kbd "<C-left>") 'tabbar-backward-tab)
+(global-set-key (kbd "<C-right>") 'tabbar-forward-tab)
 
 ;;
 ;; Org-mode related
@@ -596,7 +597,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 				      :sort-order newest-first
 				      :key "a")
 			       (:name "inbox"
-                                      :query "tag:inbox and not tag:list and not tag:from-me"
+                                      :query "tag:inbox and (not tag:list or tag:to-me) and not tag:from-me and not tag:github"
 				      :key "i")
 ;			       (:name "sent"
 ;                                      :query "tag:from-me"
@@ -615,7 +616,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 			       (:name "rss"
                                       :query "folder:rss and tag:inbox")
 			       (:name "github"
-                                      :query "folder:github and tag:inbox")
+                                      :query "folder:github and tag:inbox or tag:github and tag:inbox")
 			       (:name "notmuch"
                                       :query "tag:notmuch and tag:inbox"
 				      :key "n")
