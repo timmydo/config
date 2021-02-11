@@ -414,6 +414,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (use-package paredit)
 
+(use-package elpher)
+
 (defun timmy/kill-buffer-file-name ()
   "add the current file name to the kill ring"
   (interactive)
