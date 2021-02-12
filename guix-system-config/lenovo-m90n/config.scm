@@ -52,6 +52,9 @@ table inet filter {
     # allow dns
     ip saddr 10.18.0.0/16 udp dport { 53, 1053 } counter accept
 
+    # DHCPv6-PD
+    udp dport dhcpv6-client counter accept
+
     # reject everything else
     reject with icmpx type port-unreachable
   }
@@ -83,6 +86,7 @@ table inet filter {
   }
 }
 "))
+
 
 (define %my-dhcpd-config
   (plain-file "dhcpd.conf"
@@ -135,7 +139,9 @@ subnet 10.18.0.0 netmask 255.255.0.0 {
 	    (simple-service '%corefile etc-service-type (list `("Corefile" ,%corefile)))
 	    (service sysctl-service-type
 		     (sysctl-configuration
-		      (settings '(("net.ipv4.ip_forward" . "1")))))
+		      (settings '(("net.ipv4.ip_forward" . "1")
+				  ("net.ipv6.conf.all.forwarding" . "1")
+				  ("net.ipv6.conf.enp4s0.accept_ra" . "2")))))
 	    (service dhcpd-service-type
 		     (dhcpd-configuration
 		      (config-file %my-dhcpd-config)
