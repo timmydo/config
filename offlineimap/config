@@ -1,5 +1,5 @@
 [general]
-accounts = timmydouglascom,timmydinfo,gmail
+accounts = timmydouglascom,timmydinfo,gmail,mailtimmydouglascom
 pythonfile = ~/.config/offlineimap/helpers.py
 
 [Account timmydouglascom]
@@ -17,6 +17,23 @@ remoteuser = mail@timmydouglas.com
 remotepasseval = get_pass('tuffmail')
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 ssl = yes
+
+[Account mailtimmydouglascom]
+localrepository = mailtimmydouglascom-local
+remoterepository = mailtimmydouglascom-remote
+
+[Repository mailtimmydouglascom-local]
+type = Maildir
+localfolders = ~/mail/mailtimmydouglascom
+
+[Repository mailtimmydouglascom-remote]
+type = IMAP
+remotehost = timmydouglas.com
+remoteuser = timmy
+remotepasseval = get_pass('mailtimmydouglascom')
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+
 
 
 [Account timmydinfo]

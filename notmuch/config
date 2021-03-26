@@ -8,7 +8,7 @@ path=/home/timmy/mail
 [user]
 name=Timmy Douglas
 primary_email=mail@timmydouglas.com
-other_email=timmy@timmyd.info;timmyd983@gmail.com;
+other_email=timmy@timmyd.info;timmyd983@gmail.com;timmy@mail.timmydouglas.com
 
 [new]
 tags=unread;inbox;

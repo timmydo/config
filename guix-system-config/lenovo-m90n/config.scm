@@ -104,6 +104,15 @@ subnet 10.18.0.0 netmask 255.255.0.0 {
 }
 "))
 
+(modify-services
+ %base-services
+ (sysctl-service-type config =>
+		      (sysctl-configuration
+		       (settings (append '(("net.ipv4.ip_forward" . "1")
+					   ("net.ipv6.conf.all.forwarding" . "1")
+					   ("net.ipv6.conf.enp4s0.accept_ra" . "2"))
+					 %default-sysctl-settings)))))
+
 (operating-system
   (locale "en_US.utf8")
   (timezone "America/Los_Angeles")
@@ -137,11 +146,6 @@ subnet 10.18.0.0 netmask 255.255.0.0 {
 	    (service network-manager-service-type)
 	    (simple-service '%my-nftables-ruleset etc-service-type (list `("nftables.conf" ,%my-nftables-ruleset)))
 	    (simple-service '%corefile etc-service-type (list `("Corefile" ,%corefile)))
-	    (service sysctl-service-type
-		     (sysctl-configuration
-		      (settings '(("net.ipv4.ip_forward" . "1")
-				  ("net.ipv6.conf.all.forwarding" . "1")
-				  ("net.ipv6.conf.enp4s0.accept_ra" . "2")))))
 	    (service dhcpd-service-type
 		     (dhcpd-configuration
 		      (config-file %my-dhcpd-config)

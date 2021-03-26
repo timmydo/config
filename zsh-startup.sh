@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.guix-profile/bin:$HOME/go/bin:/usr/local/go/bin:/usr/local/bin:$PATH
-export EDITOR="emacsclient -nc"
+export EDITOR="emacs"
 export MOZ_ENABLE_WAYLAND=1
 export XDG_CONFIG_HOME=$HOME/.config
 export QT_QPA_PLATFORM=wayland
@@ -236,4 +236,4 @@ export GUIX_PROFILE="$HOME/.guix-profile"
 export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 export GUIX_PACKAGE_PATH=~/.config/guix-packages
 source "$HOME/.guix-profile/etc/profile"
-source "$HOME/.config/guix/current/etc/profile"
+#source "$HOME/.config/guix/current/etc/profile"

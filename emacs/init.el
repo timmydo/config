@@ -37,7 +37,16 @@
  '(package-selected-packages
    '(paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
  '(safe-local-variable-values
-   '((eval modify-syntax-entry 43 "'")
+   '((eval with-eval-after-load 'geiser-guile
+	   (let
+	       ((root-dir
+		 (file-name-directory
+		  (locate-dominating-file default-directory ".dir-locals.el"))))
+	     (unless
+		 (member root-dir geiser-guile-load-path)
+	       (setq-local geiser-guile-load-path
+			   (cons root-dir geiser-guile-load-path)))))
+     (eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")
      (eval modify-syntax-entry 126 "'")
      (eval let
@@ -593,11 +602,14 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 ;; Email
 ;;
 
+					;(setq notmuch-identities '("Timmy Douglas <mail@timmydouglas.com>"))
+
+(defadvice notmuch-mua-reply (around notmuch-fix-sender)
+  (let ((sender "Timmy Douglas <mail@timmydouglas.com>"))
+    ad-do-it))
+(ad-activate 'notmuch-mua-reply)
+
 (setq notmuch-saved-searches '(
-			       (:name "all"
-                                      :query "*"
-				      :sort-order newest-first
-				      :key "a")
 			       (:name "inbox"
                                       :query "tag:inbox and (not tag:list or tag:to-me) and not tag:from-me and not tag:github"
 				      :key "i")
@@ -636,7 +648,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (setq message-send-mail-function 'smtpmail-send-it)
 
 (setq send-mail-function    'smtpmail-send-it
-          smtpmail-smtp-server  "smtp.mxes.net"
+      smtpmail-smtp-server  "smtp.mxes.net"
+      ;;smtpmail-smtp-server  "smtp.sendgrid.net"
           smtpmail-stream-type  'ssl
           smtpmail-smtp-service 465)
 (defun my-message-mode-setup ()

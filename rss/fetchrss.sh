@@ -14,7 +14,4 @@ fm "https://news.ycombinator.com/rss"
 fm "https://drewdevault.com/feed.xml"
 fm "https://emersion.fr/blog/rss.xml"
 fm "https://danluu.com/atom.xml"
-gh "https://github.com/microsoft/BPerf/commits/dev.atom"
-gh "https://github.com/mmcdole/gofeed/commits/master.atom"
-gh "https://github.com/dotnet/runtime/commits/master.atom"
 
