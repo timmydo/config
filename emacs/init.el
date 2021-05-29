@@ -35,7 +35,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
+   '(slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
  '(safe-local-variable-values
    '((eval with-eval-after-load 'geiser-guile
 	   (let
@@ -425,6 +425,10 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (use-package elpher)
 
+(setq inferior-lisp-program "sbcl")
+(use-package slime)
+
+
 (defun timmy/kill-buffer-file-name ()
   "add the current file name to the kill ring"
   (interactive)
@@ -656,3 +660,5 @@ INITIAL-INPUT can be given as the initial minibuffer input."
        (setq fill-column 72)
        (turn-on-auto-fill))
 (add-hook 'message-mode-hook 'my-message-mode-setup)
+
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
