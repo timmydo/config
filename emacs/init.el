@@ -488,8 +488,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "<C-tab>") 'tab-next)
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-previous)
 
-(global-set-key (kbd "<C-left>") 'tabbar-backward-tab)
-(global-set-key (kbd "<C-right>") 'tabbar-forward-tab)
+(global-set-key (kbd "<C-left>") 'previous-buffer)
+(global-set-key (kbd "<C-right>") 'next-buffer)
 
 ;;
 ;; Org-mode related
@@ -615,7 +615,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (setq notmuch-saved-searches '(
 			       (:name "inbox"
-                                      :query "tag:inbox and (not tag:list or tag:to-me) and not tag:from-me and not tag:github"
+                                      :query "tag:inbox and (not tag:list or tag:to-me) and not tag:github"
 				      :key "i")
 ;			       (:name "sent"
 ;                                      :query "tag:from-me"

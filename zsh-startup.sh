@@ -232,8 +232,10 @@ FZF-EOF"
 #eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fpath+=${ZDOTDIR:-~}/.config/zsh_functions
 
-export GUIX_PROFILE="$HOME/.guix-profile"
+#export GUIX_PROFILE="$HOME/.guix-profile"
+export GUIX_PROFILE="$HOME/.config/guix/current"
 export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
 export GUIX_PACKAGE_PATH=~/.config/guix-packages
 source "$HOME/.guix-profile/etc/profile"
-#source "$HOME/.config/guix/current/etc/profile"
+source "$HOME/.config/guix/current/etc/profile"
+

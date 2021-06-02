@@ -1,0 +1,71 @@
+
+# mbsync config
+
+Create Near
+SyncState *
+
+# @mail.timmydouglas.com
+
+MaildirStore mailtimmydouglascom-local
+Path ~/mail/mailtimmydouglascom/
+Inbox ~/mail/mailtimmydouglascom/inbox
+SubFolders Verbatim
+
+IMAPStore mailtimmydouglascom-remote
+Host timmydouglas.com
+User timmy
+PassCmd "gpg -dq ~/.password-store/mailtimmydouglascom.gpg"
+SSLType IMAPS
+
+Channel mailtimmydouglascom-channel
+Far :mailtimmydouglascom-remote:
+Near :mailtimmydouglascom-local:
+Patterns INBOX * !Sync*
+Create Near
+
+
+
+# mail@timmydouglas.com
+
+MaildirStore timmydouglascom-local
+Path ~/mail/timmydouglascom/
+Inbox ~/mail/timmydouglascom/inbox
+SubFolders Verbatim
+
+IMAPStore timmydouglascom-remote
+Host mail.mxes.net
+User mail@timmydouglas.com
+PassCmd "gpg -dq ~/.password-store/tuffmail.gpg"
+SSLType IMAPS
+
+Channel timmydouglascom-channel
+Far :timmydouglascom-remote:
+Near :timmydouglascom-local:
+Patterns INBOX * !Sync*
+Create Near
+
+
+
+# @timmyd.info
+
+MaildirStore timmydinfo-local
+Path ~/mail/timmydinfo/
+Inbox ~/mail/timmydinfo/inbox
+SubFolders Verbatim
+
+IMAPStore timmydinfo-remote
+Host outlook.office365.com
+User timmy@timmyd.info
+PassCmd "gpg -dq ~/.password-store/timmydinfoimap.gpg"
+SSLType IMAPS
+
+
+Channel timmydinfo-channel
+Far :timmydinfo-remote:
+Near :timmydinfo-local:
+Patterns INBOX * !Sync*
+Create Near
+
+
+# Usage
+# see get-mail-loop.sh
