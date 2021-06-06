@@ -16,6 +16,7 @@ Host timmydouglas.com
 User timmy
 PassCmd "gpg -dq ~/.password-store/mailtimmydouglascom.gpg"
 SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 Channel mailtimmydouglascom-channel
 Far :mailtimmydouglascom-remote:
@@ -37,6 +38,7 @@ Host mail.mxes.net
 User mail@timmydouglas.com
 PassCmd "gpg -dq ~/.password-store/tuffmail.gpg"
 SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 Channel timmydouglascom-channel
 Far :timmydouglascom-remote:
@@ -58,7 +60,7 @@ Host outlook.office365.com
 User timmy@timmyd.info
 PassCmd "gpg -dq ~/.password-store/timmydinfoimap.gpg"
 SSLType IMAPS
-
+CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 Channel timmydinfo-channel
 Far :timmydinfo-remote:
