@@ -35,7 +35,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired vterm eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
+   '(slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
  '(safe-local-variable-values
    '((eval with-eval-after-load 'geiser-guile
 	   (let
@@ -180,6 +180,13 @@
   :custom
   (lsp-ui-doc-position 'bottom))
 
+
+;; from lsp-doctor
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024 5))
+(setq lsp-idle-delay 0.500)
+(setq lsp-ui-sideline-delay 2)
+
 (use-package lsp-treemacs
   :after lsp)
 
@@ -191,8 +198,11 @@
         (:map lsp-mode-map
          ("<tab>" . company-indent-or-complete-common))
   :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-minimum-prefix-length 2)
+  (company-idle-delay 0.5))
+
+(define-key company-active-map (kbd "<return>") nil)
+(define-key company-active-map (kbd "SPC") nil)
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
@@ -263,14 +273,6 @@
 (use-package eterm-256color
   :hook (term-mode . eterm-256color-mode))
 
-(use-package vterm
-  :commands vterm
-  :config
-  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
-  ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
-  (setq vterm-max-scrollback 10000))
-
-
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
@@ -286,8 +288,13 @@
   :config
   (setf epa-pinentry-mode 'loopback))
 
-(use-package python-mode
-  :custom (python-shell-interpreter "python3"))
+(use-package python-mode)
+
+(add-hook 'python-mode-hook
+  (lambda ()
+    (setq indent-tabs-mode t)
+    (setq python-indent 8)
+    (setq tab-width 4)))
 
 (use-package ccls
   :hook ((c-mode c++-mode objc-mode cuda-mode) .

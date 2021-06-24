@@ -14,4 +14,4 @@ fm "https://news.ycombinator.com/rss"
 fm "https://drewdevault.com/feed.xml"
 fm "https://emersion.fr/blog/rss.xml"
 fm "https://danluu.com/atom.xml"
-
+fm "https://www.anandtech.com/rss/"
