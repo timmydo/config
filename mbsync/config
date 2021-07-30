@@ -29,14 +29,14 @@ Create Near
 # mail@timmydouglas.com
 
 MaildirStore timmydouglascom-local
-Path ~/mail/timmydouglascom/
-Inbox ~/mail/timmydouglascom/inbox
+Path ~/mail/tdcom/
+Inbox ~/mail/tdcom/inbox
 SubFolders Verbatim
 
 IMAPStore timmydouglascom-remote
-Host mail.mxes.net
+Host imap.migadu.com
 User mail@timmydouglas.com
-PassCmd "gpg -dq ~/.password-store/tuffmail.gpg"
+PassCmd "gpg -dq ~/.password-store/migadu-mail.gpg"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 

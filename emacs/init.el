@@ -186,6 +186,7 @@
 (setq read-process-output-max (* 1024 1024 5))
 (setq lsp-idle-delay 0.500)
 (setq lsp-ui-sideline-delay 2)
+(setq lsp-ui-doc-enable nil)
 
 (use-package lsp-treemacs
   :after lsp)
@@ -276,6 +277,8 @@
   :bind (("C-x C-j" . dired-jump))
   :custom ((dired-listing-switches "-agho --group-directories-first"))
 )
+
+(use-package go-mode)
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
@@ -656,13 +659,15 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (setq message-send-mail-function 'smtpmail-send-it)
 
 (setq send-mail-function    'smtpmail-send-it
-      smtpmail-smtp-server  "smtp.mxes.net"
+      smtpmail-smtp-server  "smtp.migadu.com"
       ;;smtpmail-smtp-server  "smtp.sendgrid.net"
           smtpmail-stream-type  'ssl
           smtpmail-smtp-service 465)
 (defun my-message-mode-setup ()
-       (setq fill-column 72)
-       (turn-on-auto-fill))
+  (setq fill-column 72)
+  (flyspell-mode)
+  (turn-on-auto-fill))
 (add-hook 'message-mode-hook 'my-message-mode-setup)
 
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+(setq erc-default-server "localhost")
