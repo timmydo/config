@@ -4,17 +4,17 @@
 Create Near
 SyncState *
 
-# @mail.timmydouglas.com
+# mail@timmydouglas.com
 
 MaildirStore mailtimmydouglascom-local
-Path ~/mail/mailtimmydouglascom/
-Inbox ~/mail/mailtimmydouglascom/inbox
+Path ~/mail/tdcom2/
+Inbox ~/mail/tdcom2/inbox
 SubFolders Verbatim
 
 IMAPStore mailtimmydouglascom-remote
 Host timmydouglas.com
-User timmy
-PassCmd "gpg -dq ~/.password-store/mailtimmydouglascom.gpg"
+User mail
+PassCmd "gpg -dq ~/.password-store/tdcom.gpg"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -28,23 +28,23 @@ Create Near
 
 # mail@timmydouglas.com
 
-MaildirStore timmydouglascom-local
-Path ~/mail/tdcom/
-Inbox ~/mail/tdcom/inbox
-SubFolders Verbatim
+#MaildirStore timmydouglascom-local
+#Path ~/mail/tdcom/
+#Inbox ~/mail/tdcom/inbox
+#SubFolders Verbatim
 
-IMAPStore timmydouglascom-remote
-Host imap.migadu.com
-User mail@timmydouglas.com
-PassCmd "gpg -dq ~/.password-store/migadu-mail.gpg"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+#IMAPStore timmydouglascom-remote
+#Host imap.migadu.com
+#User mail@timmydouglas.com
+#PassCmd "gpg -dq ~/.password-store/migadu-mail.gpg"
+#SSLType IMAPS
+#CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-Channel timmydouglascom-channel
-Far :timmydouglascom-remote:
-Near :timmydouglascom-local:
-Patterns INBOX * !Sync*
-Create Near
+#Channel timmydouglascom-channel
+#Far :timmydouglascom-remote:
+#Near :timmydouglascom-local:
+#Patterns INBOX * !Sync*
+#Create Near
 
 
 
