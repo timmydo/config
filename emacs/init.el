@@ -35,7 +35,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
+   '(geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
  '(safe-local-variable-values
    '((eval with-eval-after-load 'geiser-guile
 	   (let
@@ -423,6 +423,9 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 	      ("C-r" . timmy/counsel-eshell-history)))
 
 (use-package geiser)
+(use-package geiser-guile)
+(with-eval-after-load 'geiser-guile
+  (add-to-list 'geiser-guile-load-path "~/src/guix"))
 
 (use-package notmuch)
 
@@ -459,6 +462,13 @@ INITIAL-INPUT can be given as the initial minibuffer input."
       (eshell-emit-prompt))
     (eshell)))
 
+(defun timmy/findemacsconfig ()
+  "edit the emacs config"
+  (interactive)
+  (find-file "/home/timmy/.config/emacs/init.el"))
+
+
+
 ;;
 ;; Global key bindings
 ;;
@@ -487,7 +497,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "<f9>") 'dired)
 (global-set-key (kbd "<f10>") 'magit-status)
 (global-set-key (kbd "<f11>") 'bury-buffer)
-(global-set-key (kbd "<f12>") 'delete-other-windows)
+(global-set-key (kbd "<f12>") 'timmy/findemacsconfig)
 
 (global-set-key (kbd "<pause>") 'mode-line-other-buffer)
 (global-set-key (kbd "M-o") 'mode-line-other-buffer)
@@ -675,9 +685,29 @@ INITIAL-INPUT can be given as the initial minibuffer input."
   (interactive)
   (erc :server "10.18.11.2" :nick "user" :password "user"))
 
+(defun browse-url-netsurf (url &optional new-window)
+  (interactive (browse-url-interactive-arg "URL: "))
+  (setq url (browse-url-encode-url url))
+  (let* ((process-environment (browse-url-process-environment)))
+    (apply #'start-process
+           (concat "netsurf-gtk3" url) nil
+           "netsurf-gtk3"
+           (append
+            (list url)))))
+
+(defun browse-url-visurf (url &optional new-window)
+  (interactive (browse-url-interactive-arg "URL: "))
+  (setq url (browse-url-encode-url url))
+  (let* ((process-environment (browse-url-process-environment)))
+    (apply #'start-process
+           (concat "visurf" url) nil
+           "/gnu/store/2kyhf9i7kxm5za87m61mz1ldslyknqki-visurf-0.1/bin/netsurf-vi"
+           (append
+            (list url)))))
+
 (setq
  browse-url-handlers
  '(
-  ("news.ycombinator.com" . eww-browse-url)
-  ("." . browse-url-default-browser)
+;  ("news.ycombinator.com" . eww-browse-url)
+  (".*" . browse-url-visurf)
   ))
