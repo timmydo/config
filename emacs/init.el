@@ -468,7 +468,6 @@ INITIAL-INPUT can be given as the initial minibuffer input."
   (find-file "/home/timmy/.config/emacs/init.el"))
 
 
-
 ;;
 ;; Global key bindings
 ;;
@@ -683,7 +682,16 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (setq erc-default-server "10.18.11.2")
 (defun timmy/erc ()
   (interactive)
-  (erc :server "10.18.11.2" :nick "user" :password "user"))
+  (setq erc-email-userid "timmydo")
+  (erc-tls :server "chat.sr.ht"
+       :nick "timmydo"
+       :port 6697
+       :full-name "timmydo"
+       :password
+       (let ((secret (plist-get (car (auth-source-search :host "chat.sr.ht" :user "timmydo" :max 1)) :secret)))
+	 (if (functionp secret)
+	     (funcall secret)
+	   secret))))
 
 (defun browse-url-netsurf (url &optional new-window)
   (interactive (browse-url-interactive-arg "URL: "))
