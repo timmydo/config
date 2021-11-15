@@ -23,6 +23,7 @@ ethernet enp5s0 {
 
 tztime local {
         format = "%A %Y-%m-%d %l:%M %p"
+	timezone = "America/Los_Angeles"
 #        hide_if_equals_localtime = true
 }
 
