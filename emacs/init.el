@@ -20,10 +20,6 @@
   (setq mouse-sel-mode nil)
 )
 
-
-(unless (eq system-type 'windows-nt)
-  (setq exec-path '("/home/timmy/.cargo/bin" "/home/timmy/bin" "/home/timmy/.local/bin" "/home/timmy/.guix-profile/bin" "/home/timmy/go/bin" "/usr/local/go/bin" "/usr/local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/home/timmy/.fzf/bin" "/usr/local/libexec/emacs/28.0.50/x86_64-pc-linux-gnu" "/run/current-system/profile/bin")))
-
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
@@ -35,7 +31,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present exec-path-from-shell deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
+   '(geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
  '(safe-local-variable-values
    '((eval with-eval-after-load 'geiser-guile
 	   (let
