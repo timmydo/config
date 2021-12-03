@@ -217,6 +217,18 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+(use-package avy)
+(setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n))
+(defcustom avy-dispatch-alist
+  '((?M . avy-action-kill-move)
+    (?m . avy-action-kill-stay)
+    (?T . avy-action-teleport)
+    (?p . avy-action-mark)
+    (?c . avy-action-copy)
+    (?y . avy-action-yank)
+    (?Y . avy-action-yank-line)
+    (?i . avy-action-ispell)
+    (?z . avy-action-zap-to-char))
 
 
 (defun my-csharp-mode-setup ()
@@ -502,6 +514,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (global-set-key (kbd "<C-left>") 'previous-buffer)
 (global-set-key (kbd "<C-right>") 'next-buffer)
+(global-set-key (kbd "M-s") 'avy-goto-char)
+(global-set-key (kbd "M-j") 'avy-goto-char-timer)
 
 ;;
 ;; Org-mode related

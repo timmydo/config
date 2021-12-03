@@ -217,7 +217,7 @@ bar {
 }
 
 
-bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+bindsym print exec --no-startup-id slurp | grim -g - ~/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
 
 
 include @sysconfdir@/sway/config.d/*

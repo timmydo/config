@@ -3,11 +3,10 @@
     email = mail@timmydouglas.com
 
 [sendemail]
-    smtpencryption = tls
-    smtpserver = smtp.mxes.net
-    smtpserverport = 443
+    smtpencryption = ssl
+    smtpserver = smtp.migadu.com
     smtpuser = mail@timmydouglas.com
-    smtpserverport = 587
+    smtpserverport = 465
 
 [alias]
     c = commit
