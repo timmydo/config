@@ -219,7 +219,7 @@
 
 (use-package avy)
 (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n))
-(defcustom avy-dispatch-alist
+(setq avy-dispatch-alist
   '((?M . avy-action-kill-move)
     (?m . avy-action-kill-stay)
     (?T . avy-action-teleport)
@@ -227,8 +227,8 @@
     (?c . avy-action-copy)
     (?y . avy-action-yank)
     (?Y . avy-action-yank-line)
-    (?i . avy-action-ispell)
-    (?z . avy-action-zap-to-char))
+    (?s . avy-action-ispell)
+    (?z . avy-action-zap-to-char)))
 
 
 (defun my-csharp-mode-setup ()
@@ -485,11 +485,6 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "C-x C-f") 'counsel-find-file) ;; gives C-x C-f counsel features
 (global-set-key (kbd "C-x f") 'counsel-file-jump) ;; gives C-x C-f counsel features
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
 (global-set-key (kbd "C-c g") 'counsel-git)
@@ -719,7 +714,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
   (let* ((process-environment (browse-url-process-environment)))
     (apply #'start-process
            (concat "visurf" url) nil
-           "/gnu/store/2kyhf9i7kxm5za87m61mz1ldslyknqki-visurf-0.1/bin/netsurf-vi"
+           "/gnu/store/bjn9a16zmkllcvhwpngvbjpssiaviiwn-visurf-20211204/bin/netsurf-vi"
            (append
             (list url)))))
 

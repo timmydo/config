@@ -2,6 +2,9 @@
     name = Timmy Douglas
     email = mail@timmydouglas.com
 
+[credential]
+    helper=netrc
+
 [sendemail]
     smtpencryption = ssl
     smtpserver = smtp.migadu.com
