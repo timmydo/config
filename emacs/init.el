@@ -4,9 +4,6 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-(setenv "GUIX_PROFILE" "/home/timmy/.guix-profile")
-(setenv "GUIX_LOCPATH" "/home/timmy/.guix-profile/lib/locale")
-
 (unless window-system
   (require 'mouse)
   (xterm-mouse-mode 0)

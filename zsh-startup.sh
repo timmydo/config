@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.guix-profile/bin:$HOME/go/bin:/usr/local/go/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$PATH
 export EDITOR="emacs"
 export MOZ_ENABLE_WAYLAND=1
 export XDG_CONFIG_HOME=$HOME/.config
@@ -232,6 +232,4 @@ FZF-EOF"
 #eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fpath+=${ZDOTDIR:-~}/.config/zsh_functions
 export TZ='America/Los_Angeles'
-export GUIX_PROFILE="$HOME/.guix-profile"
-source "$HOME/.guix-profile/etc/profile"
 
