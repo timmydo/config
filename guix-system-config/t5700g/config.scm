@@ -3,10 +3,11 @@
 
 (use-modules (gnu)
 	     (gnu packages shells)
+	     (gnu services virtualization)
 	     (nongnu packages linux)
              (nongnu system linux-initrd))
 
-(use-service-modules desktop networking ssh xorg)
+(use-service-modules desktop networking ssh xorg networking)
 
 (operating-system
   (kernel linux)
@@ -23,28 +24,32 @@
                   (group "users")
                   (home-directory "/home/timmy")
                   (supplementary-groups
-                    '("wheel" "netdev" "audio" "video" "input")))
+                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm")))
                 %base-user-accounts))
   (packages
     (append
-      (map specification->package (list "nss-certs" "zsh"))
+      (map specification->package (list "nss-certs" "zsh" "sway"))
       %base-packages))
   (services
     (append
-      (list (service openssh-service-type)
-            (service network-manager-service-type)
-            (service wpa-supplicant-service-type))
+     (list (service openssh-service-type)
+	   (service network-manager-service-type)
+	   (service wpa-supplicant-service-type)
+	   (service ntp-service-type)
+	    (service libvirt-service-type
+		     (libvirt-configuration
+		      (unix-sock-group "libvirt")
+		      (tls-port "16555"))))
       %base-services))
   (bootloader
     (bootloader-configuration
       (bootloader grub-efi-bootloader)
-      (target "/boot/efi")
+      (targets (list "/boot/efi"))
       (keyboard-layout keyboard-layout)))
-  (swap-devices
-    (list (uuid "166071b2-30d2-4d64-a0c8-40c308a7f16c")))
   (file-systems
     (cons* (file-system
              (mount-point "/")
+	     (flags '(lazy-time))
              (device
                (uuid "5e3cf9e9-ebfd-4e2b-b39d-ebc097a36dd8"
                      'btrfs))
