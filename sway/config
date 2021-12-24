@@ -59,6 +59,7 @@ exec swayidle -w timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "outp
 #
     # Start a terminal
     bindsym $mod+Return exec foot
+    bindsym $mod+e exec emacs
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -143,7 +144,7 @@ exec swayidle -w timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "outp
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+Shift+s layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen

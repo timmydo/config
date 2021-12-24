@@ -1,0 +1,3 @@
+#!/bin/sh
+sleep 4
+exec /gnu/store/rq828p4fj2lz395hdz440n2jg066wyg5-wireplumber-0.4.4/bin/wireplumber
