@@ -1,5 +1,7 @@
 +btrfs +list -- linux-btrfs@vger.kernel.org
 +git +list -- git@vger.kernel.org
++alpine +list -- mailer@lists.alpinelinux.org
++alpine +list -- alpine-aports@lists.alpinelinux.org
 +emacs-devel +list -- emacs-devel@gnu.org
 +emacs-devel +list -- emacs@noreply.github.com
 +notmuch +list -- notmuch@notmuchmail.org

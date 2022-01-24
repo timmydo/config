@@ -643,6 +643,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
                                       :query "tag:btrfs and tag:inbox")
 			       (:name "gemini"
                                       :query "tag:gemini and tag:inbox")
+			       (:name "alpine"
+                                      :query "tag:alpine and tag:inbox")
 			       (:name "guix"
                                       :query "tag:guix and tag:inbox")
 			       (:name "git"
