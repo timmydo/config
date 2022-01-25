@@ -2,8 +2,11 @@
 ;; by the graphical installer.
 
 (use-modules (gnu)
+	     (gnu packages mail)
 	     (gnu packages shells)
+	     (gnu services mail)
 	     (gnu services virtualization)
+	     (gnu system setuid)
 	     (nongnu packages linux)
              (nongnu system linux-initrd))
 
@@ -17,6 +20,21 @@
   (timezone "America/Los_Angeles")
   (keyboard-layout (keyboard-layout "us"))
   (host-name "t5700g")
+  (setuid-programs
+   (append (list (setuid-program
+                  (program (file-append opensmtpd "/sbin/smtpctl"))
+		  (setuid? #f)
+		  (setgid? #t)
+		  (user "root")
+		  (group "smtpq"))
+		 (setuid-program
+                  (program (file-append opensmtpd "/sbin/sendmail"))
+		  (setuid? #f)
+		  (setgid? #t)
+		  (user "root")
+		  (group "smtpq")))
+           %setuid-programs))
+  
   (users (cons* (user-account
                  (name "timmy")
 		 (shell (file-append zsh "/bin/zsh"))
@@ -35,6 +53,9 @@
      (list (service openssh-service-type)
 	   (service network-manager-service-type)
 	   (service wpa-supplicant-service-type)
+	   (service opensmtpd-service-type
+		    (opensmtpd-configuration
+		     (config-file (local-file "/etc/opensmtpd.conf"))))
 	   (service ntp-service-type)
 	    (service libvirt-service-type
 		     (libvirt-configuration
