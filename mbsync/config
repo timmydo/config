@@ -69,5 +69,27 @@ Patterns INBOX * !Sync*
 Create Near
 
 
+# mx.timmyd.info
+
+MaildirStore mxtimmyd-local
+Path ~/mail/mxtimmyd/
+Inbox ~/mail/mxtimmyd/inbox
+SubFolders Verbatim
+
+IMAPStore mxtimmyd-remote
+Host mx.timmyd.info
+User timmy
+PassCmd "gpg -dq ~/.password-store/timmydinfoimap.gpg"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+Channel mxtimmyd-channel
+Far :mxtimmyd-remote:
+Near :mxtimmyd-local:
+Patterns INBOX * !Sync*
+Create Near
+
+
+
 # Usage
 # see get-mail-loop.sh
