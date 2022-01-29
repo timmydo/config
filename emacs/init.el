@@ -633,7 +633,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (setq notmuch-saved-searches '(
 			       (:name "inbox"
-                                      :query "tag:inbox and (not tag:list or tag:to-me) and not tag:github"
+                                      :query "tag:inbox and not tag:list and not tag:github"
 				      :key "i")
 ;			       (:name "sent"
 ;                                      :query "tag:from-me"

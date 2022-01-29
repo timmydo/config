@@ -17,10 +17,4 @@
 +list -- folder:github
 +github -- icu@noreply.github.com
 +drafts -- folder:drafts
-+to-me -- to:timmy@timmyd.info
-+to-me -- to:mail@timmydouglas.com
-+to-me -- to:timmyd983@gmail.com
-+from-me -- from:timmy@timmyd.info
-+from-me -- from:mail@timmydouglas.com
-+from-me -- from:timmyd983@gmail.com
 +patch -- subject:PATCH
