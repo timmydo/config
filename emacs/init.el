@@ -724,3 +724,6 @@ INITIAL-INPUT can be given as the initial minibuffer input."
   (".*" . browse-url-visurf)
   ))
 (put 'upcase-region 'disabled nil)
+
+
+(load-file "~/.config/emacs/hare-mode.el")
