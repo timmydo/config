@@ -713,7 +713,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
   (let* ((process-environment (browse-url-process-environment)))
     (apply #'start-process
            (concat "visurf" url) nil
-           "/gnu/store/bjn9a16zmkllcvhwpngvbjpssiaviiwn-visurf-20211204/bin/netsurf-vi"
+           "/gnu/store/sdlgyfaxwp86apmky4jqj0ipkqq75g0g-visurf-0.1.1/bin/netsurf-vi"
            (append
             (list url)))))
 

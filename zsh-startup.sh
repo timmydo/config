@@ -1,9 +1,12 @@
 #!/usr/bin/env zsh
 # If you come from bash you might have to change your $PATH.
+source /etc/profile
 export PATH=$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$PATH
 export EDITOR="emacs"
 export MOZ_ENABLE_WAYLAND=1
 export XDG_CONFIG_HOME=$HOME/.config
+export XDG_RUNTIME_DIR=/tmp/timmy-xdg
+mkdir -p $XDG_RUNTIME_DIR
 export QT_QPA_PLATFORM=wayland
 if  [ ! -d "$HOME/.oh-my-zsh" ]; then
   git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh

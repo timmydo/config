@@ -207,7 +207,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command swaystatus
+    status_command /home/timmy/bin/swaystatus
 
     colors {
         statusline #ffffff
