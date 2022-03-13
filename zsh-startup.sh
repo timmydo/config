@@ -8,6 +8,16 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_RUNTIME_DIR=/tmp/timmy-xdg
 mkdir -p $XDG_RUNTIME_DIR
 export QT_QPA_PLATFORM=wayland
+
+# ssh-agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+
+
 if  [ ! -d "$HOME/.oh-my-zsh" ]; then
   git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
