@@ -1,0 +1,6 @@
+version: STSv1
+mode: enforce
+mx: timmydouglas.com
+mx: mx.timmydouglas.com
+mx: mx.timmyd.info
+max_age: 1209600
