@@ -17,7 +17,6 @@ if [[ ! "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
 
-
 if  [ ! -d "$HOME/.oh-my-zsh" ]; then
   git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi

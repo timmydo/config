@@ -6,23 +6,23 @@ SyncState *
 
 # mail@timmydouglas.com
 
-MaildirStore mailtimmydouglascom-local
-Path ~/mail/tdcom2/
-Inbox ~/mail/tdcom2/inbox
-SubFolders Verbatim
+# MaildirStore mailtimmydouglascom-local
+# Path ~/mail/tdcom2/
+# Inbox ~/mail/tdcom2/inbox
+# SubFolders Verbatim
 
-IMAPStore mailtimmydouglascom-remote
-Host timmydouglas.com
-User mail
-PassCmd "gpg -dq ~/.password-store/tdcom.gpg"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# IMAPStore mailtimmydouglascom-remote
+# Host timmydouglas.com
+# User mail
+# PassCmd "gpg -dq ~/.password-store/tdcom.gpg"
+# SSLType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-Channel mailtimmydouglascom-channel
-Far :mailtimmydouglascom-remote:
-Near :mailtimmydouglascom-local:
-Patterns INBOX * !Sync*
-Create Near
+# Channel mailtimmydouglascom-channel
+# Far :mailtimmydouglascom-remote:
+# Near :mailtimmydouglascom-local:
+# Patterns INBOX * !Sync*
+# Create Near
 
 
 
@@ -50,23 +50,23 @@ Create Near
 
 # @timmyd.info
 
-MaildirStore timmydinfo-local
-Path ~/mail/timmydinfo/
-Inbox ~/mail/timmydinfo/inbox
-SubFolders Verbatim
+# MaildirStore timmydinfo-local
+# Path ~/mail/timmydinfo/
+# Inbox ~/mail/timmydinfo/inbox
+# SubFolders Verbatim
 
-IMAPStore timmydinfo-remote
-Host outlook.office365.com
-User timmy@timmyd.info
-PassCmd "gpg -dq ~/.password-store/timmydinfoimap.gpg"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# IMAPStore timmydinfo-remote
+# Host outlook.office365.com
+# User timmy@timmyd.info
+# PassCmd "gpg -dq ~/.password-store/timmydinfoimap.gpg"
+# SSLType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-Channel timmydinfo-channel
-Far :timmydinfo-remote:
-Near :timmydinfo-local:
-Patterns INBOX * !Sync*
-Create Near
+# Channel timmydinfo-channel
+# Far :timmydinfo-remote:
+# Near :timmydinfo-local:
+# Patterns INBOX * !Sync*
+# Create Near
 
 
 # mx.timmyd.info
