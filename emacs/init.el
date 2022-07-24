@@ -719,10 +719,21 @@ INITIAL-INPUT can be given as the initial minibuffer input."
            (append
             (list url)))))
 
+(defun browse-url-chromium (url &optional new-window)
+  (interactive (browse-url-interactive-arg "URL: "))
+  (setq url (browse-url-encode-url url))
+  (let* ((process-environment (browse-url-process-environment)))
+    (apply #'start-process
+           (concat "chromium" url) nil
+           "/home/timmy/.guix-profile/bin/chromium"
+           (append
+            (list url)))))
+
 (setq
  browse-url-handlers
  '(
 ;  ("news.ycombinator.com" . eww-browse-url)
+;  (".*" . browse-url-chromium)
   (".*" . browse-url-visurf)
   ))
 (put 'upcase-region 'disabled nil)
