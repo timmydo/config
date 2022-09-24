@@ -734,7 +734,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
  '(
 ;  ("news.ycombinator.com" . eww-browse-url)
 ;  (".*" . browse-url-chromium)
-  (".*" . browse-url-visurf)
+  (".*" . eww-browse-url)
+;  (".*" . browse-url-visurf)
   ))
 (put 'upcase-region 'disabled nil)
 
