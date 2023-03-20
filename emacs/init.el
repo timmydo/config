@@ -28,9 +28,40 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
+   '(vterm treemacs geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
  '(safe-local-variable-values
-   '((eval with-eval-after-load 'geiser-guile
+   '((eval progn
+	   (require 'lisp-mode)
+	   (defun emacs27-lisp-fill-paragraph
+	       (&optional justify)
+	     (interactive "P")
+	     (or
+	      (fill-comment-paragraph justify)
+	      (let
+		  ((paragraph-start
+		    (concat paragraph-start "\\|\\s-*\\([(;\"]\\|\\s-:\\|`(\\|#'(\\)"))
+		   (paragraph-separate
+		    (concat paragraph-separate "\\|\\s-*\".*[,\\.]$"))
+		   (fill-column
+		    (if
+			(and
+			 (integerp emacs-lisp-docstring-fill-column)
+			 (derived-mode-p 'emacs-lisp-mode))
+			emacs-lisp-docstring-fill-column fill-column)))
+		(fill-paragraph justify))
+	      t))
+	   (setq-local fill-paragraph-function #'emacs27-lisp-fill-paragraph))
+     (eval with-eval-after-load 'yasnippet
+	   (let
+	       ((guix-yasnippets
+		 (expand-file-name "etc/snippets/yas"
+				   (locate-dominating-file default-directory ".dir-locals.el"))))
+	     (unless
+		 (member guix-yasnippets yas-snippet-dirs)
+	       (add-to-list 'yas-snippet-dirs guix-yasnippets)
+	       (yas-reload-all))))
+     (eval add-to-list 'completion-ignored-extensions ".go")
+     (eval with-eval-after-load 'geiser-guile
 	   (let
 	       ((root-dir
 		 (file-name-directory
@@ -181,6 +212,7 @@
 (setq lsp-ui-sideline-delay 2)
 (setq lsp-ui-doc-enable nil)
 
+(use-package treemacs)
 (use-package lsp-treemacs
   :after lsp)
 
@@ -440,9 +472,11 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (use-package elpher)
 
+(use-package vterm)
+
 (setq inferior-lisp-program "sbcl")
 (use-package slime)
-
+(setq slime-load-failed-fasl 'never)
 
 (defun timmy/kill-buffer-file-name ()
   "add the current file name to the kill ring"
@@ -500,6 +534,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (global-set-key (kbd "<pause>") 'mode-line-other-buffer)
 (global-set-key (kbd "M-o") 'mode-line-other-buffer)
+(global-set-key (kbd "C-o") 'other-window)
+(global-set-key (kbd "C-x o") 'open-line)
 
 (global-set-key (kbd "<C-tab>") 'tab-next)
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-previous)
@@ -740,4 +776,4 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (put 'upcase-region 'disabled nil)
 
 
-(load-file "~/.config/emacs/hare-mode.el")
+;(load-file "~/.config/emacs/hare-mode.el")

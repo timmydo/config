@@ -155,9 +155,6 @@ subnet 10.18.0.0 netmask 255.255.0.0 {
 		     (coredns-configuration (config-file "/etc/Corefile")))
 	    (service nftables-service-type
 		     (nftables-configuration (ruleset %my-nftables-ruleset)))
-	    (service prometheus-node-exporter-service-type
-		     (prometheus-node-exporter-configuration
-		                           (web-listen-address ":9100")))
             (service wpa-supplicant-service-type))
       %base-services))
   (bootloader
