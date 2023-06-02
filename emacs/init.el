@@ -535,6 +535,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "<pause>") 'mode-line-other-buffer)
 (global-set-key (kbd "M-o") 'mode-line-other-buffer)
 (global-set-key (kbd "C-o") 'other-window)
+(define-key dired-mode-map (kbd "C-o") 'other-window)
+
 (global-set-key (kbd "C-x o") 'open-line)
 
 (global-set-key (kbd "<C-tab>") 'tab-next)

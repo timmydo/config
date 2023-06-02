@@ -1,0 +1,2 @@
+#!/bin/sh
+exec sbcl --eval '(progn (ql:quickload :lem-ncurses) (lem:lem))'
