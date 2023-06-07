@@ -28,7 +28,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vterm treemacs geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
+   '(frog-jump-buffer vterm treemacs geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
  '(safe-local-variable-values
    '((eval progn
 	   (require 'lisp-mode)
@@ -470,6 +470,26 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (use-package paredit)
 
+(use-package frog-jump-buffer :ensure t)
+
+(defcustom frog-menu-avy-keys (append (string-to-list "aoeuidhtns")
+                                      (string-to-list "1234567890")
+                                      (string-to-list "',.pyfgcrl")
+                                      (string-to-list ";qjkxbmwvz")
+                                      (number-sequence ?, ?@))
+  "Frog menu keys used for `avy-keys'.
+By default uses a large collection of keys, so that the hints can
+be drawn by single characters."
+  :type '(repeat character))
+
+(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+
 (use-package elpher)
 
 (use-package vterm)
@@ -523,7 +543,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "C-c k") 'counsel-ag) ;; add counsel/ivy features to ag package
 (global-set-key (kbd "C-x l") 'counsel-locate)
 
-(global-set-key (kbd "<f1>") 'timmy/eshell)
+(global-set-key (kbd "<f1>") 'frog-jump-buffer)
 (global-set-key (kbd "<f2>") 'recompile)
 (global-set-key (kbd "<f5>") 'deadgrep)
 (global-set-key (kbd "<f6>") 'counsel-git)
@@ -543,7 +563,9 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-previous)
 
 (global-set-key (kbd "<C-left>") 'previous-buffer)
+(define-key paredit-mode-map (kbd "<C-left>") 'previous-buffer)
 (global-set-key (kbd "<C-right>") 'next-buffer)
+(define-key paredit-mode-map (kbd "<C-right>") 'next-buffer)
 (global-set-key (kbd "M-s") 'avy-goto-char)
 (global-set-key (kbd "M-j") 'avy-goto-char-timer)
 
