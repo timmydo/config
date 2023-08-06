@@ -22,82 +22,6 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(frog-jump-buffer vterm treemacs geiser-guile treemacs-all-the-icons slime paredit geiser ccls python-mode pass guix omnisharp omnisharp-emacs csharp-mode command-log-mode all-the-icons-dired eterm-256color rainbow-delimiters company-box helpful ivy-rich which-key lsp-ivy lsp-treemacs dockerfile-mode flycheck-aspell flycheck company-go company-terraform hide-mode-line org-tree-slide doom-modeline solarized-theme zenburn-theme org-present deadgrep elpher spinner magit ivy counsel go-rename go-mode yasnippet company-lsp company lsp-ui lsp-mode use-package notmuch notmuch-counsel))
- '(safe-local-variable-values
-   '((eval progn
-	   (require 'lisp-mode)
-	   (defun emacs27-lisp-fill-paragraph
-	       (&optional justify)
-	     (interactive "P")
-	     (or
-	      (fill-comment-paragraph justify)
-	      (let
-		  ((paragraph-start
-		    (concat paragraph-start "\\|\\s-*\\([(;\"]\\|\\s-:\\|`(\\|#'(\\)"))
-		   (paragraph-separate
-		    (concat paragraph-separate "\\|\\s-*\".*[,\\.]$"))
-		   (fill-column
-		    (if
-			(and
-			 (integerp emacs-lisp-docstring-fill-column)
-			 (derived-mode-p 'emacs-lisp-mode))
-			emacs-lisp-docstring-fill-column fill-column)))
-		(fill-paragraph justify))
-	      t))
-	   (setq-local fill-paragraph-function #'emacs27-lisp-fill-paragraph))
-     (eval with-eval-after-load 'yasnippet
-	   (let
-	       ((guix-yasnippets
-		 (expand-file-name "etc/snippets/yas"
-				   (locate-dominating-file default-directory ".dir-locals.el"))))
-	     (unless
-		 (member guix-yasnippets yas-snippet-dirs)
-	       (add-to-list 'yas-snippet-dirs guix-yasnippets)
-	       (yas-reload-all))))
-     (eval add-to-list 'completion-ignored-extensions ".go")
-     (eval with-eval-after-load 'geiser-guile
-	   (let
-	       ((root-dir
-		 (file-name-directory
-		  (locate-dominating-file default-directory ".dir-locals.el"))))
-	     (unless
-		 (member root-dir geiser-guile-load-path)
-	       (setq-local geiser-guile-load-path
-			   (cons root-dir geiser-guile-load-path)))))
-     (eval modify-syntax-entry 43 "'")
-     (eval modify-syntax-entry 36 "'")
-     (eval modify-syntax-entry 126 "'")
-     (eval let
-	   ((root-dir-unexpanded
-	     (locate-dominating-file default-directory ".dir-locals.el")))
-	   (when root-dir-unexpanded
-	     (let*
-		 ((root-dir
-		   (expand-file-name root-dir-unexpanded))
-		  (root-dir*
-		   (directory-file-name root-dir)))
-	       (unless
-		   (boundp 'geiser-guile-load-path)
-		 (defvar geiser-guile-load-path 'nil))
-	       (make-local-variable 'geiser-guile-load-path)
-	       (require 'cl-lib)
-	       (cl-pushnew root-dir* geiser-guile-load-path :test #'string-equal))))
-     (eval setq-local guix-directory
-	   (locate-dominating-file default-directory ".dir-locals.el")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -470,6 +394,9 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (use-package paredit)
 
+
+
+
 (use-package frog-jump-buffer :ensure t)
 
 (defcustom frog-menu-avy-keys (append (string-to-list "aoeuidhtns")
@@ -490,13 +417,19 @@ be drawn by single characters."
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
+(add-hook 'lisp-mode-hook 'sly-editing-mode)
+(remove-hook 'lisp-mode-hook 'slime-lisp-mode-hook)
+
+(use-package sly)
+
+
 (use-package elpher)
 
 (use-package vterm)
 
 (setq inferior-lisp-program "sbcl")
-(use-package slime)
-(setq slime-load-failed-fasl 'never)
+;(use-package slime)
+;(setq slime-load-failed-fasl 'never)
 
 (defun timmy/kill-buffer-file-name ()
   "add the current file name to the kill ring"
@@ -545,6 +478,7 @@ be drawn by single characters."
 
 (global-set-key (kbd "<f1>") 'frog-jump-buffer)
 (global-set-key (kbd "<f2>") 'recompile)
+(global-set-key (kbd "<f3>") 'paredit-mode)
 (global-set-key (kbd "<f5>") 'deadgrep)
 (global-set-key (kbd "<f6>") 'counsel-git)
 (global-set-key (kbd "<f9>") 'dired)

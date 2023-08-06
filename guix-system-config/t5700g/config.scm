@@ -75,6 +75,13 @@
                (uuid "5e3cf9e9-ebfd-4e2b-b39d-ebc097a36dd8"
                      'btrfs))
              (type "btrfs"))
+	   (file-system
+             (mount-point "/mnt/backup")
+	     (flags '(lazy-time))
+             (device
+               (uuid "69d03e6e-55c3-4c52-8602-1100b9db0feb"
+                     'btrfs))
+             (type "btrfs"))
            (file-system
              (mount-point "/boot/efi")
              (device (uuid "DE22-AB01" 'fat32))
