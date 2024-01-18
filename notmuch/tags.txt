@@ -18,3 +18,5 @@
 +github -- icu@noreply.github.com
 +drafts -- folder:drafts
 +patch -- subject:PATCH
++hare +list -- ~sircmpwn/hare-dev@lists.sr.ht
++hare +list -- ~sircmpwn/hare-users@lists.sr.ht

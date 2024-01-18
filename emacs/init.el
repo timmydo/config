@@ -45,10 +45,6 @@
 
 (use-package all-the-icons)
 
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
-
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
@@ -394,7 +390,10 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (use-package paredit)
 
-
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
 
 
 (use-package frog-jump-buffer :ensure t)
@@ -425,7 +424,6 @@ be drawn by single characters."
 
 (use-package elpher)
 
-(use-package vterm)
 
 (setq inferior-lisp-program "sbcl")
 ;(use-package slime)
@@ -478,7 +476,7 @@ be drawn by single characters."
 
 (global-set-key (kbd "<f1>") 'frog-jump-buffer)
 (global-set-key (kbd "<f2>") 'recompile)
-(global-set-key (kbd "<f3>") 'paredit-mode)
+(global-set-key (kbd "<f3>") 'counsel-git-grep)
 (global-set-key (kbd "<f5>") 'deadgrep)
 (global-set-key (kbd "<f6>") 'counsel-git)
 (global-set-key (kbd "<f9>") 'dired)
@@ -635,6 +633,8 @@ be drawn by single characters."
 ;				      :key "s")
 			       (:name "btrfs"
                                       :query "tag:btrfs and tag:inbox")
+			       (:name "hare"
+                                      :query "tag:hare and tag:inbox")
 			       (:name "save"
                                       :query "tag:save")
 			       (:name "gemini"
@@ -735,3 +735,107 @@ be drawn by single characters."
 
 
 ;(load-file "~/.config/emacs/hare-mode.el")
+
+(let ((haremode "~/src/hare-mode/hare-mode.el"))
+ (when (file-exists-p haremode)
+   (load-file haremode))
+)
+
+
+
+;; apply patches
+(defun mbox-open-notmuch-messages ()
+  "When this function is executed in notmuch-show buffer all the \"open\"
+messages will be written to the file ~/tmp-mbox (overwriting it)."
+  (interactive)
+  (let ((search-terms-list (notmuch-show-get-message-ids-for-open-messages))
+	(buffer (get-buffer-create "* Contents of ~/tmp-mbox *")))
+    (set-buffer buffer)
+    (setq buffer-read-only nil)
+    (buffer-disable-undo)
+    (pop-to-buffer buffer)
+    (goto-char (point-max))
+    (if (> (buffer-size) 0)
+	(insert "\n\n"))
+    (insert (format-time-string
+	     "%c: Writing the following messages to ~/tmp-mbox:\n ")
+	    (mapconcat 'identity search-terms-list "\n ") "\n")
+    (with-temp-file "~/tmp-mbox"
+      (call-process notmuch-command nil t nil "show" "--format=mbox"
+		    (mapconcat 'identity search-terms-list " OR ")))
+    (insert "\nMessages in ~/tmp-mbox:\n")
+    (call-process "mail" nil t nil
+		  "-H" "-f" (expand-file-name "~/tmp-mbox"))))
+
+
+
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(editorconfig yasnippet which-key use-package treemacs-all-the-icons
+		  solarized-theme sly slime rainbow-delimiters
+		  python-mode pass paredit org-tree-slide omnisharp
+		  notmuch magit lsp-ui lsp-treemacs ivy-rich
+		  hide-mode-line helpful go-mode geiser-guile
+		  frog-jump-buffer eterm-256color elpher deadgrep
+		  counsel company-lsp company-box ccls
+		  all-the-icons-dired))
+ '(safe-local-variable-values
+   '((eval with-eval-after-load 'geiser-guile
+	   (let
+	       ((root-dir
+		 (file-name-directory
+		  (locate-dominating-file default-directory
+					  ".dir-locals.el"))))
+	     (unless (member root-dir geiser-guile-load-path)
+	       (setq-local geiser-guile-load-path
+			   (cons root-dir geiser-guile-load-path)))))
+     (eval progn (require 'lisp-mode)
+	   (defun emacs27-lisp-fill-paragraph (&optional justify)
+	     (interactive "P")
+	     (or (fill-comment-paragraph justify)
+		 (let
+		     ((paragraph-start
+		       (concat paragraph-start
+			       "\\|\\s-*\\([(;\"]\\|\\s-:\\|`(\\|#'(\\)"))
+		      (paragraph-separate
+		       (concat paragraph-separate
+			       "\\|\\s-*\".*[,\\.]$"))
+		      (fill-column
+		       (if
+			   (and
+			    (integerp emacs-lisp-docstring-fill-column)
+			    (derived-mode-p 'emacs-lisp-mode))
+			   emacs-lisp-docstring-fill-column
+			 fill-column)))
+		   (fill-paragraph justify))
+		 t))
+	   (setq-local fill-paragraph-function
+		       #'emacs27-lisp-fill-paragraph))
+     (eval modify-syntax-entry 43 "'")
+     (eval modify-syntax-entry 36 "'")
+     (eval modify-syntax-entry 126 "'")
+     (geiser-repl-per-project-p . t)
+     (eval with-eval-after-load 'yasnippet
+	   (let
+	       ((guix-yasnippets
+		 (expand-file-name "etc/snippets/yas"
+				   (locate-dominating-file
+				    default-directory ".dir-locals.el"))))
+	     (unless (member guix-yasnippets yas-snippet-dirs)
+	       (add-to-list 'yas-snippet-dirs guix-yasnippets)
+	       (yas-reload-all))))
+     (eval setq-local guix-directory
+	   (locate-dominating-file default-directory ".dir-locals.el"))
+     (eval add-to-list 'completion-ignored-extensions ".go"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

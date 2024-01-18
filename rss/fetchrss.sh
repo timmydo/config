@@ -3,17 +3,18 @@
 fm() {
 ~/bin/feed2maildir --feed $1 --maildir ~/mail/rss
 }
-gh() {
-~/bin/feed2maildir --feed $1 --maildir ~/mail/github
+
+fm2() {
+~/bin/rss2maildir -d ~/mail/rss $1
 }
 
-fm "https://www.phoronix.com/rss.php"
-fm "https://lwn.net/headlines/rss"
-fm "https://timmydouglas.com/post/index.xml"
-fm "https://news.ycombinator.com/rss"
-fm "https://drewdevault.com/feed.xml"
-fm "https://emersion.fr/blog/rss.xml"
-fm "https://danluu.com/atom.xml"
-fm "https://www.anandtech.com/rss/"
-fm "https://link.chtbl.com/corecursive?platform=rss"
-fm "https://turtleware.eu/rss.xml"
+
+fm2 "https://www.phoronix.com/rss.php"
+fm2 "https://lwn.net/headlines/rss"
+fm2 "https://timmydouglas.com/post/index.xml"
+fm2 "https://news.ycombinator.com/rss"
+fm2 "https://drewdevault.com/feed.xml"
+fm2 "https://www.theurbanist.org/feed/"
+#fm2 "https://emersion.fr/blog/rss.xml"
+#fm2 "https://danluu.com/atom.xml"
+#fm2 "https://turtleware.eu/rss.xml"
