@@ -241,6 +241,8 @@ FZF-EOF"
 
 [[ -f "$HOME/.cargo/env" ]] && source ~/.cargo/env
 
+alias mc=". $(dirname $(readlink ~/.guix-profile/bin/mc))/../libexec/mc/mc-wrapper.sh"
+
 #eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fpath+=${ZDOTDIR:-~}/.config/zsh_functions
 export TZ='America/Los_Angeles'

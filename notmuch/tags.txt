@@ -20,3 +20,5 @@
 +patch -- subject:PATCH
 +hare +list -- ~sircmpwn/hare-dev@lists.sr.ht
 +hare +list -- ~sircmpwn/hare-users@lists.sr.ht
++sourcehut +list -- ~sircmpwn/sr.ht-dev@lists.sr.ht
++sourcehut +list -- ~sircmpwn/sr.ht-discuss@lists.sr.ht

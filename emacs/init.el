@@ -637,8 +637,8 @@ be drawn by single characters."
                                       :query "tag:hare and tag:inbox")
 			       (:name "save"
                                       :query "tag:save")
-			       (:name "gemini"
-                                      :query "tag:gemini and tag:inbox")
+			       (:name "sourcehut"
+                                      :query "tag:sourcehut and tag:inbox")
 			       (:name "alpine"
                                       :query "tag:alpine and tag:inbox")
 			       (:name "guix"
