@@ -11,7 +11,7 @@
              (nongnu system linux-initrd))
 
 (use-service-modules desktop networking ssh xorg networking)
-
+(use-package-modules security-token)
 (operating-system
   (kernel linux)
   (initrd microcode-initrd)
@@ -42,7 +42,7 @@
                   (group "users")
                   (home-directory "/home/timmy")
                   (supplementary-groups
-                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm")))
+                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev")))
                 %base-user-accounts))
   (packages
     (append
@@ -53,6 +53,7 @@
      (list (service openssh-service-type)
 	   (service network-manager-service-type)
 	   (service wpa-supplicant-service-type)
+	   (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
 	   (service opensmtpd-service-type
 		    (opensmtpd-configuration
 		     (config-file (local-file "/etc/opensmtpd.conf"))))
