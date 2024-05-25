@@ -625,12 +625,14 @@ be drawn by single characters."
 
 (setq notmuch-saved-searches '(
 			       (:name "inbox"
-                                      :query "tag:inbox and not tag:list and not tag:github"
+                                      :query "tag:inbox and not tag:list and not tag:github and not tag:html"
 				      :key "i")
 ;			       (:name "sent"
 ;                                      :query "tag:from-me"
 ;				      :sort-order newest-first
 ;				      :key "s")
+			       (:name "html"
+                                      :query "tag:inbox and tag:html and not tag:list")
 			       (:name "btrfs"
                                       :query "tag:btrfs and tag:inbox")
 			       (:name "hare"

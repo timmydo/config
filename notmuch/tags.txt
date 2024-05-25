@@ -22,3 +22,4 @@
 +hare +list -- ~sircmpwn/hare-users@lists.sr.ht
 +sourcehut +list -- ~sircmpwn/sr.ht-dev@lists.sr.ht
 +sourcehut +list -- ~sircmpwn/sr.ht-discuss@lists.sr.ht
++html -- mimetype:text/html
