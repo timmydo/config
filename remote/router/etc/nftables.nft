@@ -1,0 +1,57 @@
+flush ruleset
+
+table ip nat {
+  chain prerouting {
+    type nat hook prerouting priority 0; policy accept;
+    iif eth0 udp dport 53 counter redirect to :1053
+  }
+  chain postrouting {
+    type nat hook postrouting priority 100; policy accept;
+    iif eth1 ip saddr 10.18.0.0/16 oifname eth0 masquerade
+    
+  }
+  chain output {
+    type nat hook output priority 100; policy accept;
+  }
+}
+
+table inet filter {
+  chain input {
+    type filter hook input priority 0; policy drop;
+
+    # early drop of invalid connections
+    ct state invalid counter drop
+
+    # allow established/related connections
+    ct state { established, related } counter accept
+
+    # allow from loopback
+    iifname lo counter accept
+
+    # allow icmp
+    ip protocol icmp counter accept
+    ip6 nexthdr icmpv6 counter accept
+
+    # allow ssh
+    ip saddr 10.18.0.0/16 tcp dport ssh counter accept
+
+    # allow dns
+    ip saddr 10.18.0.0/16 udp dport { 53, 1053 } counter accept
+
+    # DHCPv6-PD
+    udp dport dhcpv6-client counter accept
+
+    icmpv6 type {echo-request,nd-neighbor-solicit,nd-neighbor-advert,nd-router-solicit,
+             nd-router-advert,mld-listener-query,destination-unreachable,
+             packet-too-big,time-exceeded,parameter-problem} accept
+
+    # reject everything else
+    reject with icmpx type port-unreachable
+  }
+  chain forward {
+    type filter hook forward priority 0; policy accept;
+  }
+  chain output {
+    type filter hook output priority 0; policy accept;
+  }
+}
