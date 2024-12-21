@@ -38,7 +38,7 @@
 (dolist (mode '(org-mode-hook
                 term-mode-hook
                 shell-mode-hook
-                treemacs-mode-hook
+;                treemacs-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -132,9 +132,10 @@
 (setq lsp-ui-sideline-delay 2)
 (setq lsp-ui-doc-enable nil)
 
-(use-package treemacs)
-(use-package lsp-treemacs
-  :after lsp)
+;(use-package treemacs)
+;
+;(use-package lsp-treemacs
+;  :after lsp)
 
 (use-package company
   :after lsp-mode
@@ -149,12 +150,6 @@
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
-
-;; company-lsp integrates company mode completion with lsp-mode.
-;; completion-at-point also works out of the box but doesn't support snippets.
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
 
 ;; Optional - provides snippet support.
 (use-package yasnippet
@@ -199,10 +194,6 @@
 
   (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
   (local-set-key (kbd "C-c C-c") 'recompile))
-
-(use-package csharp-mode)
-(use-package omnisharp
-  :hook (csharp-mode-hook my-csharp-mode-setup))
 
 (eval-after-load
   'company
@@ -388,7 +379,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (use-package deadgrep)
 
-(use-package paredit)
+;(use-package paredit)
 
 (use-package editorconfig
   :ensure t
@@ -408,13 +399,13 @@ By default uses a large collection of keys, so that the hints can
 be drawn by single characters."
   :type '(repeat character))
 
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+;(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+;(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+;(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+;(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+;(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+;(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+;(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
 (add-hook 'lisp-mode-hook 'sly-editing-mode)
 (remove-hook 'lisp-mode-hook 'slime-lisp-mode-hook)
@@ -495,9 +486,9 @@ be drawn by single characters."
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-previous)
 
 (global-set-key (kbd "<C-left>") 'previous-buffer)
-(define-key paredit-mode-map (kbd "<C-left>") 'previous-buffer)
+;(define-key paredit-mode-map (kbd "<C-left>") 'previous-buffer)
 (global-set-key (kbd "<C-right>") 'next-buffer)
-(define-key paredit-mode-map (kbd "<C-right>") 'next-buffer)
+;(define-key paredit-mode-map (kbd "<C-right>") 'next-buffer)
 (global-set-key (kbd "M-s") 'avy-goto-char)
 (global-set-key (kbd "M-j") 'avy-goto-char-timer)
 
@@ -778,15 +769,7 @@ messages will be written to the file ~/tmp-mbox (overwriting it)."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(editorconfig yasnippet which-key use-package treemacs-all-the-icons
-		  solarized-theme sly slime rainbow-delimiters
-		  python-mode pass paredit org-tree-slide omnisharp
-		  notmuch magit lsp-ui lsp-treemacs ivy-rich
-		  hide-mode-line helpful go-mode geiser-guile
-		  frog-jump-buffer eterm-256color elpher deadgrep
-		  counsel company-lsp company-box ccls
-		  all-the-icons-dired))
+ '(package-selected-packages nil)
  '(safe-local-variable-values
    '((eval with-eval-after-load 'geiser-guile
 	   (let
