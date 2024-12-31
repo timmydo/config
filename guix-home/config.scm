@@ -4,6 +4,9 @@
 ;; need to capture the channels being used, as returned by "guix describe".
 ;; See the "Replicating Guix" section in the manual.
 
+
+;; guix home reconfigure ~/.config/guix-home/config.scm
+
 (use-modules (gnu home)
              (gnu packages)
              (gnu services)
@@ -41,11 +44,13 @@
                                             "password-store"
                                             "notmuch"
                                             "git"
+					    "perl"
                                             "sbcl"
                                             "emacs-pgtk"
                                             "perf"
                                             "clang-toolchain"
                                             "wireplumber-sans-elogind"
+					    "openssh-sans-x"
                                             "opensmtpd"
                                             "bind:utils"
                                             "gcc-toolchain"
@@ -103,6 +108,7 @@
                                             "font-wqy-zenhei"
                                             "font-dejavu"
                                             "man-pages"
+					    "less"
                                             )))
 
   ;; Below is the list of Home services.  To search for available
@@ -120,6 +126,6 @@
 	 (service home-zsh-service-type
 		  (home-zsh-configuration
                    (zshrc (list (local-file
-                                 "/home/timmy/.config/zsh-startup.sh")))
+                                 "/home/timmy/.config/guix-home/zsh.sh")))
 		   (zprofile (list ))
 		   )))))
