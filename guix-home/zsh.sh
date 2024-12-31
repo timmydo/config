@@ -17,7 +17,14 @@ fi
 
 # Load version control information
 autoload -Uz vcs_info
-precmd() { vcs_info }
+precmd() {
+    vcs_info
+    print -Pn "\e]0;%n@%m:%d\a"
+}
+
+preexec() {
+    print -Pn "\e]0;%n@%m:%d: $1\a"
+}
 
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats '%b'
