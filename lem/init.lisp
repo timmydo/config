@@ -3,8 +3,11 @@
 ;; do nothing
 (defun check-already-defined-command (name source-location))
 
+(lem-core:load-site-init)
 
 (in-package :lem-user)
+
+(lem-lisp-mode/implementation:set-default-command "sbcl")
 
 (define-command open-init-file () ()
   (lem:find-file
@@ -76,6 +79,10 @@
 
 (define-key lem:*global-keymap* "C-o" 'lem:next-window)
 ;(define-key lem:*global-keymap* "C-w" 'kill-region-or-line)
+
+
+(load "/home/timmy/src/lem-notmuch/package.lisp")
+(load "/home/timmy/src/lem-notmuch/notmuch.lisp")
 
 (setf lem-notmuch:*notmuch-saved-searches* '(
 			       (:name "inbox"

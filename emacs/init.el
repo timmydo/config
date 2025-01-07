@@ -131,7 +131,7 @@
 (setq lsp-idle-delay 0.500)
 (setq lsp-ui-sideline-delay 2)
 (setq lsp-ui-doc-enable nil)
-
+(setq lsp-lens-enable nil)
 ;(use-package treemacs)
 ;
 ;(use-package lsp-treemacs
@@ -174,26 +174,6 @@
     (?s . avy-action-ispell)
     (?z . avy-action-zap-to-char)))
 
-
-(defun my-csharp-mode-setup ()
-  (omnisharp-mode)
-  (company-mode)
-  (flycheck-mode)
-
-  (setq indent-tabs-mode nil)
-  (setq c-syntactic-indentation t)
-  (c-set-style "ellemtel")
-  (setq c-basic-offset 4)
-  (setq truncate-lines t)
-  (setq tab-width 4)
-  (setq evil-shift-width 4)
-
-  ;csharp-mode README.md recommends this too
-  ;(electric-pair-mode 1)       ;; Emacs 24
-  ;(electric-pair-local-mode 1) ;; Emacs 25
-
-  (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
-  (local-set-key (kbd "C-c C-c") 'recompile))
 
 (eval-after-load
   'company

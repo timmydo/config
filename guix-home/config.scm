@@ -109,6 +109,9 @@
                                             "font-dejavu"
                                             "man-pages"
 					    "less"
+					    "lem"
+					    "grep"
+					    "guix"
                                             )))
 
   ;; Below is the list of Home services.  To search for available
