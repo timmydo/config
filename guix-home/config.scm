@@ -8,6 +8,8 @@
 ;; guix home reconfigure ~/.config/guix-home/config.scm
 
 (use-modules (gnu home)
+	     (gnu home services guix)
+	     (guix channels)
              (gnu packages)
              (gnu services)
              (guix gexp)
@@ -49,12 +51,13 @@
                                             "emacs-pgtk"
                                             "perf"
                                             "clang-toolchain"
-                                            "wireplumber-sans-elogind"
+                                            "wireplumber-minimal"
 					    "openssh-sans-x"
                                             "opensmtpd"
                                             "bind:utils"
                                             "gcc-toolchain"
                                             "pandoc"
+					    "sway"
                                             "swayr"
                                             "runc"
                                             "smartmontools"
@@ -95,7 +98,6 @@
                                             "jmtpfs"
                                             "strace"
                                             "zsh"
-                                            "mailutils-timmy"
                                             "util-linux"
                                             "unzip"
                                             "execline"
@@ -111,13 +113,23 @@
 					    "less"
 					    "lem"
 					    "grep"
-					    "guix"
                                             )))
 
   ;; Below is the list of Home services.  To search for available
   ;; services, run 'guix home search KEYWORD' in a terminal.
   (services
-   (list (service home-bash-service-type
+   (list
+         (service home-channels-service-type
+               (list (channel
+                      (name 'guix)
+                      (url "https://git.savannah.gnu.org/git/guix.git")
+                      (branch "master"))
+		     (channel
+                      (name 'guix)
+                      (url "https://gitlab.com/nonguix/nonguix.git")
+                      (branch "master"))
+		     ))
+         (service home-bash-service-type
                   (home-bash-configuration
                    (aliases '())
                    (bashrc (list (local-file

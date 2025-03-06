@@ -8,7 +8,8 @@
 	     (gnu services virtualization)
 	     (gnu system setuid)
 	     (nongnu packages linux)
-             (nongnu system linux-initrd))
+             (nongnu system linux-initrd)
+	     )
 
 (use-service-modules desktop networking ssh xorg networking)
 (use-package-modules security-token)

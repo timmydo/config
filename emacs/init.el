@@ -715,7 +715,7 @@ be drawn by single characters."
    (load-file haremode))
 )
 
-
+;(setq-default show-trailing-whitespace nil)
 
 ;; apply patches
 (defun mbox-open-notmuch-messages ()
@@ -750,7 +750,13 @@ messages will be written to the file ~/tmp-mbox (overwriting it)."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(all-the-icons-dired ccls company-box counsel deadgrep elpher
+			 eterm-256color frog-jump-buffer geiser-guile
+			 go-mode helpful hide-mode-line ivy-rich
+			 lsp-ui magit notmuch omnisharp org-tree-slide
+			 pass python-mode rainbow-delimiters sly
+			 solarized-theme yasnippet))
  '(safe-local-variable-values
    '((eval with-eval-after-load 'geiser-guile
 	   (let
