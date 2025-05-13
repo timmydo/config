@@ -18,7 +18,8 @@
 (home-environment
   ;; Below is the list of packages that will show up in your
   ;; Home profile, under ~/.guix-home/profile.
- (packages (specifications->packages (list "texinfo"
+ (packages (specifications->packages (list "aerc"
+					   "texinfo"
 					   "procps"
                                             "mpv"
                                             "xdg-desktop-portal-wlr"
@@ -64,7 +65,6 @@
                                             "go"
                                             "catimg"
                                             "w3m"
-                                            "libxkbcommon"
                                             "imagemagick"
                                             "mesa"
                                             "btrfs-progs"
@@ -125,7 +125,7 @@
                       (url "https://git.savannah.gnu.org/git/guix.git")
                       (branch "master"))
 		     (channel
-                      (name 'guix)
+                      (name 'nonguix)
                       (url "https://gitlab.com/nonguix/nonguix.git")
                       (branch "master"))
 		     ))
