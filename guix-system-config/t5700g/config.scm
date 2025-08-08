@@ -6,6 +6,7 @@
 	     (gnu packages shells)
 	     (gnu services mail)
 	     (gnu services virtualization)
+	     (gnu services desktop)
 	     (gnu system setuid)
 	     (nongnu packages linux)
              (nongnu system linux-initrd)
@@ -21,6 +22,9 @@
   (timezone "America/Los_Angeles")
   (keyboard-layout (keyboard-layout "us"))
   (host-name "t5700g")
+  (kernel-arguments
+   (append (list "user_namespace.enable=1")
+           %default-kernel-arguments))
   (setuid-programs
    (append (list (setuid-program
                   (program (file-append opensmtpd "/sbin/smtpctl"))
@@ -52,6 +56,7 @@
   (services
     (append
      (list (service openssh-service-type)
+	   (service seatd-service-type)
 	   (service network-manager-service-type)
 	   (service wpa-supplicant-service-type)
 	   (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))

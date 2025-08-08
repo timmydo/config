@@ -80,7 +80,7 @@ IMAPStore mxtimmyd-remote
 Host mx.timmyd.info
 User timmy
 PassCmd "gpg -dq ~/.password-store/timmydinfoimap.gpg"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 Channel mxtimmyd-channel
