@@ -50,3 +50,4 @@ bindkey '\e[H' beginning-of-line
 bindkey '\e[F' end-of-line
 bindkey "\e[3~" delete-char
 
+source ~/.config/aliases.sh

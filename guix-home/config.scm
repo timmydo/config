@@ -22,6 +22,7 @@
 					   "texinfo"
 					   "procps"
 					   "bubblewrap"
+					   "node"
                                             "mpv"
 					    "xdg-desktop-portal"
 					    "xdg-desktop-portal-gtk"

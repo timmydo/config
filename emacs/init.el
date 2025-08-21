@@ -491,6 +491,10 @@ be drawn by single characters."
 (setq org-agenda-files (list "~/org"))
 
 
+
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode t)
+
 ;;
 ;; pcomplete
 ;;
@@ -758,7 +762,73 @@ messages will be written to the file ~/tmp-mbox (overwriting it)."
 			 pass python-mode rainbow-delimiters sly
 			 solarized-theme yasnippet))
  '(safe-local-variable-values
-   '((eval with-eval-after-load 'geiser-guile
+   '((geiser-insert-actual-lambda)
+     (eval cl-flet
+	   ((enhance-imenu-lisp (&rest keywords)
+				(dolist (keyword keywords)
+				  (let
+				      ((prefix
+					(when (listp keyword)
+					  (cl-second keyword)))
+				       (keyword
+					(if (listp keyword)
+					    (cl-first keyword)
+					  keyword)))
+				    (add-to-list
+				     'lisp-imenu-generic-expression
+				     (list
+				      (purecopy
+				       (concat (capitalize keyword)
+					       (if
+						   (string=
+						    (substring-no-properties
+						     keyword -1)
+						    "s")
+						   "es"
+						 "s")))
+				      (purecopy
+				       (concat "^\\s-*("
+					       (regexp-opt
+						(list
+						 (if prefix
+						     (concat prefix
+							     "-"
+							     keyword)
+						   keyword)
+						 (concat prefix "-"
+							 keyword))
+						t)
+					       "\\s-+\\("
+					       lisp-mode-symbol-regexp
+					       "\\)"))
+				      2))))))
+	   (enhance-imenu-lisp '("bookmarklet-command" "define")
+			       '("class" "define")
+			       '("command" "define")
+			       '("ffi-method" "define")
+			       '("ffi-generic" "define")
+			       '("function" "define")
+			       '("internal-page-command" "define")
+			       '("internal-page-command-global"
+				 "define")
+			       '("mode" "define")
+			       '("parenscript" "define") "defpsmacro"))
+     (eval with-eval-after-load 'tempel
+	   (if (stringp tempel-path)
+	       (setq tempel-path (list tempel-path)))
+	   (let
+	       ((guix-tempel-snippets
+		 (concat
+		  (expand-file-name "etc/snippets/tempel"
+				    (locate-dominating-file
+				     default-directory
+				     ".dir-locals.el"))
+		  "/*.eld")))
+	     (unless (member guix-tempel-snippets tempel-path)
+	       (add-to-list 'tempel-path guix-tempel-snippets))))
+     (eval with-eval-after-load 'git-commit
+	   (add-to-list 'git-commit-trailers "Change-Id"))
+     (eval with-eval-after-load 'geiser-guile
 	   (let
 	       ((root-dir
 		 (file-name-directory
