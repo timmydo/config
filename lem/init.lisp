@@ -110,3 +110,4 @@
 			       (:name "deals"
                                       :query "tag:deals and tag:inbox")
 			       ))
+(setf lem-notmuch:*sendmail-program* "msmtp")

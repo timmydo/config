@@ -1,0 +1,16 @@
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/log/msmtp.log
+
+# Gmail
+account        migadu
+host           smtp.migadu.com
+port           465
+tls_starttls   off
+from           mail@timmydouglas.com
+user           mail@timmydouglas.com
+passwordeval   "pass migadu-mail|head -n1"
+
+account default: migadu
