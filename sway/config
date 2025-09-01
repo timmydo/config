@@ -33,6 +33,7 @@ output * bg #000000 solid_color
 exec swayidle -w timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 
 exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1
+exec /home/timmy/.config/run-sway-jobs.sh
 
 
 #          timeout 300 'swaylock -f -c 000000' \
