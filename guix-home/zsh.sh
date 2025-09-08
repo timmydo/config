@@ -1,4 +1,6 @@
 #!/bin/sh
+
+export PATH=/home/timmy/bin:/home/timmy/npm/bin
 source ~/.profile
 
 export EDITOR="emacs"

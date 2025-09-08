@@ -128,7 +128,7 @@
          (service home-channels-service-type
                (list (channel
                       (name 'guix)
-                      (url "https://git.savannah.gnu.org/git/guix.git")
+                      (url "https://git.guix.gnu.org/guix.git")
                       (branch "master")
 
 		      (introduction
