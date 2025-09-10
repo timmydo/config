@@ -7,12 +7,13 @@
 	     (gnu services mail)
 	     (gnu services virtualization)
 	     (gnu services desktop)
+	     (gnu system accounts)
 	     (gnu system setuid)
 	     (nongnu packages linux)
              (nongnu system linux-initrd)
 	     )
 
-(use-service-modules desktop networking ssh xorg networking)
+(use-service-modules base containers desktop networking ssh xorg networking)
 (use-package-modules security-token)
 (operating-system
   (kernel linux)
@@ -23,7 +24,7 @@
   (keyboard-layout (keyboard-layout "us"))
   (host-name "t5700g")
   (kernel-arguments
-   (append (list "user_namespace.enable=1")
+   (append (list "user_namespace.enable=1" "systemd.unified_cgroup_hierarchy=1")
            %default-kernel-arguments))
   (setuid-programs
    (append (list (setuid-program
@@ -51,11 +52,16 @@
                 %base-user-accounts))
   (packages
     (append
-      (map specification->package (list "nss-certs" "zsh" "sway"))
+      (map specification->package (list "zsh"))
       %base-packages))
   (services
     (append
-     (list (service openssh-service-type)
+     (list 
+	   (service rootless-podman-service-type
+              (rootless-podman-configuration
+                (subgids (list (subid-range (name "timmy"))))
+                (subuids (list (subid-range (name "timmy"))))))
+           (service openssh-service-type)
 	   (service seatd-service-type)
 	   (service network-manager-service-type)
 	   (service wpa-supplicant-service-type)

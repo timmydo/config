@@ -119,6 +119,9 @@
 					    "grep"
 					    "msmtp"
 					    "thunar"
+					    "wl-clipboard"
+					    "ydotool"
+					    "podman"
                                             )))
 
   ;; Below is the list of Home services.  To search for available
