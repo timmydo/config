@@ -64,6 +64,8 @@
                                             "pandoc"
 					    "sway"
                                             "swayr"
+					    "swayidle"
+					    "dbus"
                                             "runc"
                                             "smartmontools"
                                             "go"
@@ -77,7 +79,6 @@
                                             "xdg-utils"
                                             "fontconfig"
                                             "grim"
-                                            "wayland-protocols"
                                             "font-gnu-freefont"
                                             "cifs-utils"
                                             "python-pygobject"
@@ -119,9 +120,16 @@
 					    "grep"
 					    "msmtp"
 					    "thunar"
+					    "whisper-cpp"
 					    "wl-clipboard"
 					    "ydotool"
 					    "podman"
+					    "coreutils"
+					    "guix"
+					    "sed"
+					    "findutils"
+					    "inetutils"
+					    "ripgrep"
                                             )))
 
   ;; Below is the list of Home services.  To search for available

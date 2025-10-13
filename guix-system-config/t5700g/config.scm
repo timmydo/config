@@ -48,7 +48,7 @@
                   (group "users")
                   (home-directory "/home/timmy")
                   (supplementary-groups
-                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev")))
+                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "seat")))
                 %base-user-accounts))
   (packages
     (append

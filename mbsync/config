@@ -72,8 +72,8 @@ SyncState *
 # mx.timmyd.info
 
 MaildirStore mxtimmyd-local
-Path ~/mail/mxtimmyd/
-Inbox ~/mail/mxtimmyd/inbox
+Path ~/mail/mxtimmyd2/
+Inbox ~/mail/mxtimmyd2/inbox
 SubFolders Verbatim
 
 IMAPStore mxtimmyd-remote
