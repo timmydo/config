@@ -1,7 +1,8 @@
 #!/bin/sh
 
-export PATH=/home/timmy/bin:/home/timmy/npm/bin
+export PATH=/run/privileged/bin:/home/timmy/.config/guix/current/bin:/home/timmy/bin:/home/timmy/npm/bin
 source ~/.profile
+source ~/.cargo/env
 
 export EDITOR="emacs"
 export MOZ_ENABLE_WAYLAND=1

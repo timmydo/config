@@ -56,7 +56,7 @@
       %base-packages))
   (services
     (append
-     (list 
+     (list
 	   (service rootless-podman-service-type
               (rootless-podman-configuration
                 (subgids (list (subid-range (name "timmy"))))
@@ -99,4 +99,5 @@
              (mount-point "/boot/efi")
              (device (uuid "DE22-AB01" 'fat32))
              (type "vfat"))
+           %fuse-control-file-system
            %base-file-systems)))

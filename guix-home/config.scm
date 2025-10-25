@@ -125,11 +125,19 @@
 					    "ydotool"
 					    "podman"
 					    "coreutils"
-					    "guix"
 					    "sed"
 					    "findutils"
 					    "inetutils"
 					    "ripgrep"
+					    "shepherd"
+					    "zstd"
+					    "rust"
+					    "rust:cargo"
+					    "fuse"
+					    "pkg-config"
+					    "make"
+					    "sshfs"
+					    "which"
                                             )))
 
   ;; Below is the list of Home services.  To search for available
