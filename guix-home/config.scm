@@ -133,11 +133,13 @@
 					    "zstd"
 					    "rust"
 					    "rust:cargo"
-					    "fuse"
 					    "pkg-config"
 					    "make"
 					    "sshfs"
 					    "which"
+					    "wget"
+					    "tar"
+					    "gzip"
                                             )))
 
   ;; Below is the list of Home services.  To search for available

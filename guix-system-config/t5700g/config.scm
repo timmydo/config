@@ -14,7 +14,14 @@
 	     )
 
 (use-service-modules base containers desktop networking ssh xorg networking)
-(use-package-modules security-token)
+(use-package-modules security-token file-systems)
+
+;; Define FUSE udev rule
+(define %fuse-udev-rule
+  (udev-rule
+    "99-fuse.rules"
+    "KERNEL==\"fuse\", MODE=\"0660\", GROUP=\"fuse\""))
+
 (operating-system
   (kernel linux)
   (initrd microcode-initrd)
@@ -40,7 +47,9 @@
 		  (user "root")
 		  (group "smtpq")))
            %setuid-programs))
-  
+  (groups (cons (user-group
+                  (name "fuse"))
+                %base-groups))
   (users (cons* (user-account
                  (name "timmy")
 		 (shell (file-append zsh "/bin/zsh"))
@@ -48,7 +57,7 @@
                   (group "users")
                   (home-directory "/home/timmy")
                   (supplementary-groups
-                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "seat")))
+                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "seat" "fuse")))
                 %base-user-accounts))
   (packages
     (append
@@ -65,6 +74,7 @@
 	   (service seatd-service-type)
 	   (service network-manager-service-type)
 	   (service wpa-supplicant-service-type)
+	   (udev-rules-service 'fuse %fuse-udev-rule #:groups '("fuse"))
 	   (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
 	   (service opensmtpd-service-type
 		    (opensmtpd-configuration
