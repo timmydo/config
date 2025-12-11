@@ -1,6 +1,8 @@
+alias ls='ls --color=auto'
 alias lal='ls -al'
 alias ll='ls -l'
 alias krmevicted='kubectl get po | grep Evicted| awk '\''{print $1}'\''| xargs -n 1 kubectl delete pod'
 alias dfh='df -h -x squashfs -x tmpfs -x devtmpfs'
 alias cc='~/npm/bin/claude'
 alias gc='~/npm/bin/gemini'
+alias dev='~/.config/dev.sh'

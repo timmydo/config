@@ -133,6 +133,7 @@
 					    "zstd"
 					    "rust"
 					    "rust:cargo"
+					    "rust-cbindgen"
 					    "pkg-config"
 					    "make"
 					    "sshfs"
@@ -140,6 +141,8 @@
 					    "wget"
 					    "tar"
 					    "gzip"
+					    "iproute2"
+					    "file"
                                             )))
 
   ;; Below is the list of Home services.  To search for available

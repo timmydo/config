@@ -762,7 +762,8 @@ messages will be written to the file ~/tmp-mbox (overwriting it)."
 			 pass python-mode rainbow-delimiters sly
 			 solarized-theme yasnippet))
  '(safe-local-variable-values
-   '((geiser-insert-actual-lambda)
+   '((lisp-fill-paragraphs-as-doc-string nil)
+     (geiser-insert-actual-lambda)
      (eval cl-flet
 	   ((enhance-imenu-lisp (&rest keywords)
 				(dolist (keyword keywords)
