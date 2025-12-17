@@ -1,5 +1,6 @@
 ;; This is an operating system configuration generated
 ;; by the graphical installer.
+;; /run/privileged/bin/sudo guix system reconfigure ~/.config/guix-system-config/t5700g/config.scm
 
 (use-modules (gnu)
 	     (gnu packages mail)
@@ -50,14 +51,25 @@
   (groups (cons (user-group
                   (name "fuse"))
                 %base-groups))
-  (users (cons* (user-account
-                 (name "timmy")
-		 (shell (file-append zsh "/bin/zsh"))
-                  (comment "timmy")
-                  (group "users")
-                  (home-directory "/home/timmy")
-                  (supplementary-groups
-                    '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "seat" "fuse")))
+  (users (cons*
+
+	  (user-account
+           (name "timmy")
+	   (shell (file-append zsh "/bin/zsh"))
+           (comment "timmy")
+           (group "users")
+           (home-directory "/home/timmy")
+           (supplementary-groups
+            '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "seat" "fuse")))
+
+	  (user-account
+           (name "test")
+           (comment "test")
+           (group "users")
+           (home-directory "/home/test")
+           (supplementary-groups
+            '("fuse")))
+	  
                 %base-user-accounts))
   (packages
     (append

@@ -5,4 +5,5 @@ alias krmevicted='kubectl get po | grep Evicted| awk '\''{print $1}'\''| xargs -
 alias dfh='df -h -x squashfs -x tmpfs -x devtmpfs'
 alias claude='node /home/timmy/npm/bin/claude --allow-dangerously-skip-permissions'
 alias gemini='node /home/timmy/npm/bin/gemini'
+alias copilot='node /home/timmy/npm/bin/copilot'
 alias dev='~/.config/dev.sh'
