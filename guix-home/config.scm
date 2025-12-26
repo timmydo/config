@@ -13,16 +13,23 @@
              (gnu services)
              (guix gexp)
              (gnu home services shells)
-             ;; Modules required for the custom Rust package
+             (srfi srfi-1)
+             ;; Modules required for custom packages
              (guix packages)
              (guix download)
+             (guix git-download)
              (guix build-system gnu)
+             (guix build-system go)
              ((guix licenses) #:prefix license:)
              (gnu packages base)
              (gnu packages gcc)
              (gnu packages commencement)
              (gnu packages elf)
-             (gnu packages compression))
+             (gnu packages compression)
+             (gnu packages golang-crypto)
+             (gnu packages golang-web)
+             (gnu packages golang-xyz)
+             (gnu packages golang-build))
 
 ;; --- Custom Rust Nightly Definition ---
 
@@ -129,14 +136,73 @@
     (description "Rust nightly binary")
     (license (list license:asl2.0 license:expat))))
 
+;; --- Custom Go Package: gofeed ---
+
+(define-public go-github-com-mmcdole-gofeed
+  (package
+    (name "go-github-com-mmcdole-gofeed")
+    (version "1.3.0")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/mmcdole/gofeed")
+             (commit (string-append "v" version))))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32
+         "03cmj4wk6yicv5pqxwa3sbqxxbw3srx2j5c9938yv0ydkccnlyhq"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/mmcdole/gofeed"
+       #:tests? #f))
+    (propagated-inputs
+     (list go-github-com-puerkitobio-goquery
+           go-github-com-json-iterator-go
+           go-github-com-mmcdole-goxpp
+           go-golang-org-x-net
+           go-golang-org-x-text))
+    (home-page "https://github.com/mmcdole/gofeed")
+    (synopsis "Parse RSS, Atom and JSON feeds in Go")
+    (description "The gofeed library is a robust feed parser that supports
+parsing both RSS, Atom and JSON feeds.")
+    (license license:expat)))
+
+;; --- Custom Go Package: feed2maildir ---
+
+(define-public feed2maildir
+  (package
+    (name "feed2maildir")
+    (version "0.0.1")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/timmydo/feed2maildir.git")
+             (commit "01f3e72d380b5ab11dbcd7cda846397ea38c4cfb")))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32
+         "0b25a9wkvw4qmsijhq6avrbm82rmp04vpp3631lpn2x9zwa2mjdn"))))
+    (build-system go-build-system)
+    (arguments
+     '(#:import-path "github.com/timmydo/feed2maildir"))
+    (propagated-inputs
+     (list go-github-com-cespare-xxhash
+           go-github-com-mmcdole-gofeed))
+    (home-page "https://github.com/timmydo/feed2maildir")
+    (synopsis "Convert RSS/Atom feeds to maildir format")
+    (description "A Go program that fetches RSS/Atom feeds and stores them in maildir format.")
+    (license license:expat)))
+
 ;; --- Home Environment ---
 
 (home-environment
- (packages 
-  (cons rust-nightly ;; Add the custom package variable here
-        (specifications->packages 
+ (packages
+  (cons* rust-nightly feed2maildir ;; Custom packages
+         (specifications->packages 
          (list "aerc" "texinfo" "procps" "bubblewrap" "node" "mpv"
-               "xdg-desktop-portal" "xdg-desktop-portal-gtk" "xdg-desktop-portal-wlr"
+               "xdg-desktop-portal-gtk" "xdg-desktop-portal-wlr"
                "python-yubikey-manager" "emacs-next-pgtk" "eog" "obs-wlrobs"
                "obs" "pipewire" "git-lfs" "evince" "imv" "virt-manager"
                "qemu" "gst-plugins-good" "flatpak" "gst-plugins-base"
@@ -156,7 +222,7 @@
                "man-pages" "less" "lem" "grep" "msmtp" "thunar" "whisper-cpp"
                "wl-clipboard" "ydotool" "podman" "coreutils" "sed" "findutils"
                "inetutils" "ripgrep" "shepherd" "zstd" "pkg-config" "make"
-               "sshfs" "which" "wget" "tar" "gzip" "iproute2" "file"))))
+               "sshfs" "which" "wget" "tar" "gzip" "iproute2" "file" "hugo"))))
 
  (services
   (append
@@ -177,12 +243,28 @@
                    (branch "master"))))
    (service home-bash-service-type
             (home-bash-configuration
-             (aliases '())
-             (bashrc (list (local-file "/home/timmy/.config/guix-home/.bashrc" "bashrc")))
-             (bash-profile (list (local-file "/home/timmy/.config/guix-home/.bash_profile" "bash_profile")))))
+             (environment-variables
+              '(("PATH" . "/run/privileged/bin:/home/timmy/.config/guix/current/bin:/home/timmy/bin:/home/timmy/npm/bin:$PATH")
+                ("EDITOR" . "emacs")
+                ("MOZ_ENABLE_WAYLAND" . "1")
+                ("XDG_CONFIG_HOME" . "/home/timmy/.config")
+                ("XDG_RUNTIME_DIR" . "/tmp/timmy-xdg")
+                ("QT_QPA_PLATFORM" . "wayland")
+                ("USER" . "timmy")))
+             (aliases
+              '(("ls" . "ls --color=auto")
+                ("lal" . "ls -al")
+                ("ll" . "ls -l")
+                ("krmevicted" . "kubectl get po | grep Evicted| awk '{print $1}'| xargs -n 1 kubectl delete pod")
+                ("dfh" . "df -h -x squashfs -x tmpfs -x devtmpfs")
+                ("claude" . "node /home/timmy/npm/bin/claude --allow-dangerously-skip-permissions")
+                ("gemini" . "node /home/timmy/npm/bin/gemini")
+                ("copilot" . "node /home/timmy/npm/bin/copilot")
+                ("dev" . "~/.config/dev.sh")))
+             (bashrc (list (local-file "/home/timmy/.config/guix-home/bashrc-extra.sh")))))
    (service home-zsh-service-type
             (home-zsh-configuration
-             (zshrc (list (local-file "/home/timmy/.config/guix-home/zsh.sh")))
+             (zshrc (list (local-file "/home/timmy/.config/guix-home/zshrc-extra.sh")))
              (zprofile (list )))))
    %base-home-services)))
 
