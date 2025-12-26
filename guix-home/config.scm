@@ -159,7 +159,8 @@
                "sshfs" "which" "wget" "tar" "gzip" "iproute2" "file"))))
 
  (services
-  (list
+  (append
+   (list
    (service home-channels-service-type
             (list (channel
                    (name 'guix)
@@ -182,6 +183,7 @@
    (service home-zsh-service-type
             (home-zsh-configuration
              (zshrc (list (local-file "/home/timmy/.config/guix-home/zsh.sh")))
-             (zprofile (list )))))))
+             (zprofile (list )))))
+   %base-home-services)))
 
 
