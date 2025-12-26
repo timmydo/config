@@ -1,1 +1,0 @@
-/gnu/store/vmi6p2zq9hlh6srz2wsm373f03fvjpy9-shepherd.conf
