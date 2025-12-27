@@ -264,7 +264,7 @@ parsing both RSS, Atom and JSON feeds.")
              (bashrc (list (local-file "/home/timmy/.config/guix-home/bashrc-extra.sh")))))
    (service home-zsh-service-type
             (home-zsh-configuration
-             (zshrc (list (local-file "/home/timmy/.config/guix-home/zshrc-extra.sh")))
+             (zshrc (list (local-file "/home/timmy/.config/guix-home/zsh.sh")))
              (zprofile (list )))))
    %base-home-services)))
 

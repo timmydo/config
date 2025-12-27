@@ -10,6 +10,7 @@
 	     (gnu services desktop)
 	     (gnu system accounts)
 	     (gnu system setuid)
+	     (guix gexp)
 	     (nongnu packages linux)
              (nongnu system linux-initrd)
 	     )
@@ -34,20 +35,20 @@
   (kernel-arguments
    (append (list "user_namespace.enable=1" "systemd.unified_cgroup_hierarchy=1")
            %default-kernel-arguments))
-  (setuid-programs
-   (append (list (setuid-program
-                  (program (file-append opensmtpd "/sbin/smtpctl"))
-		  (setuid? #f)
-		  (setgid? #t)
-		  (user "root")
-		  (group "smtpq"))
-		 (setuid-program
-                  (program (file-append opensmtpd "/sbin/sendmail"))
-		  (setuid? #f)
-		  (setgid? #t)
-		  (user "root")
-		  (group "smtpq")))
-           %setuid-programs))
+  ;; (setuid-programs
+  ;;  (append (list (setuid-program
+  ;;                 (program (file-append opensmtpd "/sbin/smtpctl"))
+  ;; 		  (setuid? #f)
+  ;; 		  (setgid? #t)
+  ;; 		  (user "root")
+  ;; 		  (group "smtpq"))
+  ;; 		 (setuid-program
+  ;;                 (program (file-append opensmtpd "/sbin/sendmail"))
+  ;; 		  (setuid? #f)
+  ;; 		  (setgid? #t)
+  ;; 		  (user "root")
+  ;; 		  (group "smtpq")))
+  ;;          %setuid-programs))
   (groups (cons (user-group
                   (name "fuse"))
                 %base-groups))
@@ -60,7 +61,7 @@
            (group "users")
            (home-directory "/home/timmy")
            (supplementary-groups
-            '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "seat" "fuse")))
+            '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "fuse")))
 
 	  (user-account
            (name "test")
@@ -78,25 +79,39 @@
   (services
     (append
      (list
-	   (service rootless-podman-service-type
-              (rootless-podman-configuration
-                (subgids (list (subid-range (name "timmy"))))
-                (subuids (list (subid-range (name "timmy"))))))
+	   ;;(service rootless-podman-service-type
+              ;;(rootless-podman-configuration
+                ;;(subgids (list (subid-range (name "timmy") (start 100000) (count 65536))))
+                ;;(subuids (list (subid-range (name "timmy") (start 100000) (count 65536))))))
            (service openssh-service-type)
-	   (service seatd-service-type)
+	   (service elogind-service-type)
+	   ;;(service seatd-service-type)
 	   (service network-manager-service-type)
 	   (service wpa-supplicant-service-type)
-	   (udev-rules-service 'fuse %fuse-udev-rule #:groups '("fuse"))
+;;	   (udev-rules-service 'fuse %fuse-udev-rule #:groups '("fuse"))
 	   (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
-	   (service opensmtpd-service-type
-		    (opensmtpd-configuration
-		     (config-file (local-file "/etc/opensmtpd.conf"))))
+	   ;;(service opensmtpd-service-type
+		    ;;(opensmtpd-configuration
+		     ;;(config-file (local-file "/etc/opensmtpd.conf"))))
 	   (service ntp-service-type)
 	    (service libvirt-service-type
 		     (libvirt-configuration
 		      (unix-sock-group "libvirt")
 		      (tls-port "16555"))))
-      %base-services))
+      (modify-services %base-services
+        (guix-service-type config =>
+          (guix-configuration
+            (inherit config)
+            (substitute-urls
+              (append (list "https://substitutes.nonguix.org")
+                      %default-substitute-urls))
+            (authorized-keys
+              (append (list (plain-file "nonguix.pub"
+                              "(public-key
+ (ecc
+  (curve Ed25519)
+  (q #C1FD53E5D4CE971933EC50C9F307AE2171A2D3B52C804642A7A35F84F3A4EA98#)))"))
+                      %default-authorized-guix-keys)))))))
   (bootloader
     (bootloader-configuration
       (bootloader grub-efi-bootloader)
@@ -121,5 +136,5 @@
              (mount-point "/boot/efi")
              (device (uuid "DE22-AB01" 'fat32))
              (type "vfat"))
-           %fuse-control-file-system
+           ;;%fuse-control-file-system
            %base-file-systems)))

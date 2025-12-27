@@ -1,17 +1,18 @@
 #!/bin/sh
 
-export PATH=/run/privileged/bin:/home/timmy/.config/guix/current/bin:/home/timmy/bin:/home/timmy/npm/bin
-source ~/.profile
-source ~/.cargo/env
-
 export EDITOR="emacs"
 export MOZ_ENABLE_WAYLAND=1
 export XDG_CONFIG_HOME=$HOME/.config
-export XDG_RUNTIME_DIR=/tmp/timmy-xdg
-mkdir -p $XDG_RUNTIME_DIR
-chmod 700 "$XDG_RUNTIME_DIR"
+#export XDG_RUNTIME_DIR=/tmp/timmy-xdg
+#mkdir -p $XDG_RUNTIME_DIR
+#chmod 700 "$XDG_RUNTIME_DIR"
 export QT_QPA_PLATFORM=wayland
 export USER=timmy
+
+export PATH=/run/privileged/bin:/home/timmy/.config/guix/current/bin:/home/timmy/npm/bin
+source ~/.profile
+#source ~/.cargo/env
+
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent -t 1h > "$HOME/ssh-agent.env"
