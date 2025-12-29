@@ -19,3 +19,6 @@ exclude_tags=spam;
 
 [maildir]
 synchronize_flags=true
+
+[index]
+header.Spam=X-Spam-Status
