@@ -15,7 +15,7 @@ tags=unread;inbox;
 ignore=
 
 [search]
-exclude_tags=spam;
+#exclude_tags=spam;
 
 [maildir]
 synchronize_flags=true

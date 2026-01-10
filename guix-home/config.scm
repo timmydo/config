@@ -222,7 +222,8 @@ parsing both RSS, Atom and JSON feeds.")
                "man-pages" "less" "lem" "grep" "msmtp" "thunar" "whisper-cpp"
                "wl-clipboard" "ydotool" "podman" "coreutils" "sed" "findutils"
                "inetutils" "ripgrep" "shepherd" "zstd" "pkg-config" "make"
-               "sshfs" "which" "wget" "tar" "gzip" "iproute2" "file" "hugo"))))
+               "sshfs" "which" "wget" "tar" "gzip" "iproute2" "file" "hugo"
+	       "postgresql"))))
 
  (services
   (append
