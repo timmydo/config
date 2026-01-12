@@ -4,6 +4,7 @@ import subprocess
 import re
 import os
 import sys
+import html
 from urllib.parse import urlparse
 import email.utils
 import datetime
@@ -139,7 +140,7 @@ def main():
             # Format date for display
             display_date = item["date"].strftime("%Y-%m-%d %H:%M")
             
-            html_content += f'        <li><span class="date">{display_date}</span><span class="subject">{item["subject"]}</span><span class="links">'
+            html_content += f'        <li><span class="date">{display_date}</span><span class="subject">{html.escape(item["subject"])}</span><span class="links">'
             for url in item["urls"]:
                 try:
                     parsed = urlparse(url)
@@ -151,7 +152,7 @@ def main():
                 except:
                     domain = "link"
                 
-                html_content += f'<a href="{url}" target="_blank">[{domain}]</a>'
+                html_content += f'<a href="{html.escape(url)}" target="_blank">[{html.escape(domain)}]</a>'
             html_content += '</span></li>\n'
 
     html_content += "    </ul>\n</body>\n</html>\n"
