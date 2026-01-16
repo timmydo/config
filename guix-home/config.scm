@@ -29,7 +29,16 @@
              (gnu packages golang-crypto)
              (gnu packages golang-web)
              (gnu packages golang-xyz)
-             (gnu packages golang-build))
+             (gnu packages golang-build)
+             (gnu packages linux)
+             (gnu packages tls)
+             (gnu packages xorg)
+             (gnu packages xdisorg)
+             (gnu packages gl)
+             (gnu packages fontutils)
+             (gnu packages vulkan)
+             (gnu packages freedesktop)
+             (gnu packages sqlite))
 
 ;; --- Custom Rust Nightly Definition ---
 
@@ -195,11 +204,112 @@ parsing both RSS, Atom and JSON feeds.")
     (description "A Go program that fetches RSS/Atom feeds and stores them in maildir format.")
     (license license:expat)))
 
+;; --- Zed Editor Package (pre-built binary) ---
+
+(define-public zed
+  (package
+    (name "zed")
+    (version "0.219.4")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append
+             "https://github.com/zed-industries/zed/releases/download/v"
+             version "/zed-linux-x86_64.tar.gz"))
+       (sha256
+        (base32 "08d8lm4zz062saihkp6ln0z89xvwi946gi4pr31acwqgb9pp3224"))))
+    (build-system gnu-build-system)
+    (arguments
+     (list
+      #:tests? #f
+      #:validate-runpath? #f
+      #:strip-binaries? #f
+      #:phases
+      #~(modify-phases %standard-phases
+          (delete 'configure)
+          (delete 'build)
+          (replace 'install
+            (lambda* (#:key outputs #:allow-other-keys)
+              (let* ((out (assoc-ref outputs "out"))
+                     (bin (string-append out "/bin"))
+                     (lib (string-append out "/lib"))
+                     (libexec (string-append out "/libexec"))
+                     (share (string-append out "/share")))
+                (mkdir-p bin)
+                (mkdir-p lib)
+                (mkdir-p libexec)
+                ;; Copy the zed wrapper script
+                (copy-file "bin/zed" (string-append bin "/zed"))
+                ;; Copy the actual zed-editor binary
+                (copy-recursively "libexec" libexec)
+                ;; Copy bundled libraries
+                (copy-recursively "lib" lib)
+                ;; Copy share (icons, desktop file)
+                (copy-recursively "share" share))))
+          (add-after 'install 'patch-binaries
+            (lambda* (#:key inputs outputs #:allow-other-keys)
+              (let* ((out (assoc-ref outputs "out"))
+                     (gcc-toolchain (assoc-ref inputs "gcc-toolchain"))
+                     (rpath (string-join
+                             (filter identity
+                               (list (string-append out "/lib")
+                                     (string-append gcc-toolchain "/lib")
+                                     (let ((p (assoc-ref inputs "zlib"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "openssl"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "alsa-lib"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "fontconfig"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "wayland"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "libxkbcommon"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "libxcb"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "vulkan-loader"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "mesa"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "libglvnd"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "sqlite"))) (and p (string-append p "/lib")))
+                                     (let ((p (assoc-ref inputs "zstd"))) (and p (string-append p "/lib")))))
+                             ":"))
+                     (ld-linux (string-append gcc-toolchain "/lib/ld-linux-x86-64.so.2")))
+                (for-each
+                 (lambda (file)
+                   (when (and (file-exists? file)
+                              (not (file-is-directory? file))
+                              (elf-file? file))
+                     (invoke "patchelf" "--set-rpath" rpath file)
+                     (unless (string-contains file ".so")
+                       (invoke "patchelf" "--set-interpreter" ld-linux file))))
+                 (find-files out ".*")))))
+          (add-after 'install 'wrap-programs
+            (lambda* (#:key inputs outputs #:allow-other-keys)
+              (let* ((out (assoc-ref outputs "out"))
+                     (xkb (assoc-ref inputs "xkeyboard-config")))
+                (wrap-program (string-append out "/bin/zed")
+                  `("XKB_CONFIG_ROOT" ":" prefix (,(string-append xkb "/share/X11/xkb"))))))))))
+    (inputs
+     (list gcc-toolchain
+           zlib
+           openssl
+           alsa-lib
+           fontconfig
+           wayland
+           libxkbcommon
+           xkeyboard-config
+           libxcb
+           vulkan-loader
+           mesa
+           libglvnd
+           sqlite
+           `(,zstd "lib")))
+    (native-inputs
+     (list patchelf))
+    (home-page "https://zed.dev")
+    (synopsis "A high-performance, multiplayer code editor")
+    (description "Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.")
+    (license license:gpl3)))
+
 ;; --- Home Environment ---
 
 (home-environment
  (packages
-  (cons* rust-nightly feed2maildir ;; Custom packages
+  (cons* rust-nightly feed2maildir zed ;; Custom packages
          (specifications->packages 
          (list "aerc" "texinfo" "procps" "bubblewrap" "node" "mpv"
                "xdg-desktop-portal-gtk" "xdg-desktop-portal-wlr"
