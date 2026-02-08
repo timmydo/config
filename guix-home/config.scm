@@ -355,7 +355,7 @@ parsing both RSS, Atom and JSON feeds.")
    (service home-bash-service-type
             (home-bash-configuration
              (environment-variables
-              '(("PATH" . "/run/privileged/bin:/home/timmy/.config/guix/current/bin:/home/timmy/bin:/home/timmy/npm/bin:$PATH")
+              '(("PATH" . "/run/privileged/bin:/home/timmy/.local/bin:/home/timmy/.config/guix/current/bin:/home/timmy/bin:/home/timmy/npm/bin:$PATH")
                 ("EDITOR" . "emacs")
                 ("MOZ_ENABLE_WAYLAND" . "1")
                 ("XDG_CONFIG_HOME" . "/home/timmy/.config")
@@ -368,10 +368,11 @@ parsing both RSS, Atom and JSON feeds.")
                 ("ll" . "ls -l")
                 ("krmevicted" . "kubectl get po | grep Evicted| awk '{print $1}'| xargs -n 1 kubectl delete pod")
                 ("dfh" . "df -h -x squashfs -x tmpfs -x devtmpfs")
-                ("claude" . "node /home/timmy/npm/bin/claude --allow-dangerously-skip-permissions")
+                ("claude" . "/home/timmy/.local/bin/claude --allow-dangerously-skip-permissions")
                 ("gemini" . "node /home/timmy/npm/bin/gemini")
                 ("copilot" . "node /home/timmy/npm/bin/copilot")
-                ("dev" . "~/.config/dev.sh")))
+                ("dev" . "~/.config/dev.sh")
+                ("fixclaude" . "~/.config/guix-home/fix-claude.sh")))
              (bashrc (list (local-file "/home/timmy/.config/guix-home/bashrc-extra.sh")))))
    (service home-zsh-service-type
             (home-zsh-configuration
