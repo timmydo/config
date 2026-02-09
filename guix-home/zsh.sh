@@ -9,7 +9,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export QT_QPA_PLATFORM=wayland
 export USER=timmy
 
-export PATH=/run/privileged/bin:/home/timmy/.config/guix/current/bin:/home/timmy/npm/bin
+export PATH=/run/privileged/bin:/home/timmy/.local/bin:/home/timmy/.config/guix/current/bin:/home/timmy/bin:/home/timmy/npm/bin
 source ~/.profile
 #source ~/.cargo/env
 
