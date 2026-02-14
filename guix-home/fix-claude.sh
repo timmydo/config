@@ -13,18 +13,12 @@ if [ $# -ge 1 ]; then
     CLAUDE_BIN="$1"
 else
     # Find the latest version directory
-    CLAUDE_BIN=$(ls -1vd "$CLAUDE_VERSIONS_DIR"/*/ 2>/dev/null | tail -n1)
+    CLAUDE_BIN=$(ls -1v "$CLAUDE_VERSIONS_DIR"/ 2>/dev/null | tail -n1)
     if [ -z "$CLAUDE_BIN" ]; then
         echo "Error: no versions found in $CLAUDE_VERSIONS_DIR" >&2
         exit 1
     fi
-    # Look for the claude binary inside the version directory
-    if [ -f "${CLAUDE_BIN}claude" ]; then
-        CLAUDE_BIN="${CLAUDE_BIN}claude"
-    else
-        # Fall back to treating the version dir path as the binary itself
-        CLAUDE_BIN="${CLAUDE_BIN%/}"
-    fi
+    CLAUDE_BIN="$CLAUDE_VERSIONS_DIR/$CLAUDE_BIN"
 fi
 
 if [ ! -f "$CLAUDE_BIN" ]; then
