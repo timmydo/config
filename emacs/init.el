@@ -652,9 +652,10 @@ be drawn by single characters."
           smtpmail-smtp-service 465)
 (defun my-message-mode-setup ()
   (setq fill-column 72)
-  (flyspell-mode)
-  (turn-on-auto-fill))
+  (flyspell-mode 1)
+  (auto-fill-mode 1))
 (add-hook 'message-mode-hook 'my-message-mode-setup)
+(add-to-list 'auto-mode-alist '("\\.eml\\'" . message-mode))
 
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 (setq erc-default-server "10.18.11.2")
