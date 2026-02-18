@@ -1,0 +1,46 @@
+[ui]
+page_size = 100
+mouse = true
+sync_interval_secs = 300
+
+[theme]
+bg = "#2b2300"
+fg = "#d7c58a"
+bold_fg = "#eee8d5"
+selection_bg = "#5f4b00"
+selection_fg = "#eee8d5"
+status_bg = "#b58900"
+status_fg = "#2b2300"
+header_fg = "#b58900"
+
+[[feed]]
+name = "Hacker News"
+url = "https://news.ycombinator.com/rss"
+
+[[feed]]
+name = "Phoronix"
+url = "https://www.phoronix.com/rss.php"
+
+[[feed]]
+name = "LWN"
+url = "https://lwn.net/headlines/rss"
+
+[[feed]]
+name = "Drew DeVault"
+url = "https://drewdevault.com/blog/index.xml"
+
+[[feed]]
+name = "The Urbanist"
+url = "https://www.theurbanist.org/feed/"
+
+[[feed]]
+name = "Seattle Bike Blog"
+url = "https://www.seattlebikeblog.com/feed/"
+
+[[feed]]
+name = "SourceHut"
+url = "https://ln.ht/_/feed/~ddevault"
+
+[[feed]]
+name = "timmydouglas.com"
+url = "https://timmydouglas.com/post/index.xml"
