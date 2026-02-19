@@ -1,7 +1,10 @@
 [ui]
 page_size = 100
 mouse = true
-sync_interval_secs = 300
+sync_interval_secs = 1000
+
+browser = "flatpak run --env=MOZ_DBUS_REMOTE=1 org.mozilla.firefox --new-tab {url}"
+
 
 [theme]
 bg = "#2b2300"
