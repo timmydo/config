@@ -1,0 +1,122 @@
+[[rule]]
+name = "move emacs-devel"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)emacs-devel@gnu\\.org" },
+  { header = "Cc", regex = "(?i)emacs-devel@gnu\\.org" },
+]
+[rule.actions]
+move_to = "INBOX/emacs-devel"
+
+[[rule]]
+name = "move help-guix"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)help-guix@gnu\\.org" },
+  { header = "Cc", regex = "(?i)help-guix@gnu\\.org" },
+]
+[rule.actions]
+move_to = "INBOX/help-guix"
+
+[[rule]]
+name = "move guix-devel"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)guix-devel@gnu\\.org" },
+  { header = "Cc", regex = "(?i)guix-devel@gnu\\.org" },
+]
+[rule.actions]
+move_to = "INBOX/guix-devel"
+
+[[rule]]
+name = "move linux-btrfs"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)linux-btrfs@vger\\.kernel\\.org" },
+  { header = "Cc", regex = "(?i)linux-btrfs@vger\\.kernel\\.org" },
+]
+[rule.actions]
+move_to = "INBOX/btrfs"
+
+[[rule]]
+name = "move git-vger"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)git@vger\\.kernel\\.org" },
+  { header = "Cc", regex = "(?i)git@vger\\.kernel\\.org" },
+]
+[rule.actions]
+move_to = "INBOX/git"
+
+[[rule]]
+name = "move musl-openwall"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)musl@lists\\.openwall\\.com" },
+  { header = "Cc", regex = "(?i)musl@lists\\.openwall\\.com" },
+]
+[rule.actions]
+move_to = "INBOX/musl"
+
+[[rule]]
+name = "move debbugs"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)@debbugs\\.gnu\\.org" },
+  { header = "Cc", regex = "(?i)@debbugs\\.gnu\\.org" },
+]
+[rule.actions]
+move_to = "INBOX/guix-devel"
+
+[[rule]]
+name = "move sourcehut"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)@lists\\.sr\\.ht" },
+  { header = "Cc", regex = "(?i)@lists\\.sr\\.ht" },
+]
+[rule.actions]
+move_to = "INBOX/sourcehut"
+
+[[rule]]
+name = "move notmuch"
+skip_if_to_me = true
+[rule.match]
+any = [
+  { header = "To", regex = "(?i)notmuch@notmuchmail\\.org" },
+  { header = "Cc", regex = "(?i)notmuch@notmuchmail\\.org" },
+]
+[rule.actions]
+move_to = "INBOX/notmuch"
+
+[[rule]]
+name = "move byga"
+[rule.match]
+header = "From"
+regex = "(?i)@byga\\.net"
+[rule.actions]
+move_to = "INBOX/byga"
+
+[[rule]]
+name = "move amazon"
+[rule.match]
+header = "From"
+regex = "(?i)@amazon\\.com"
+[rule.actions]
+move_to = "INBOX/amazon"
+
+[[rule]]
+name = "move github notifications"
+[rule.match]
+header = "From"
+regex = "(?i)(notifications@github\\.com|@noreply\\.github\\.com)"
+[rule.actions]
+move_to = "INBOX/github"

@@ -67,6 +67,7 @@ input * repeat_rate 60
 #
     # Start a terminal
     bindsym $mod+Return exec foot
+    bindsym $mod+Shift+Return exec foot -o font=monospace:size=14
     # bindsym $mod+e exec emacs
     bindsym $mod+d exec wofi --show drun | xargs swaymsg exec --
 

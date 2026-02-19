@@ -1,0 +1,28 @@
+[ui]
+page_size = 500
+browser = "flatpak run --env=MOZ_DBUS_REMOTE=1 org.mozilla.firefox --new-tab {url}"
+
+
+[theme]
+bg = "#002b36"
+fg = "#839496"
+bold_fg = "#93a1a1"
+selection_bg = "#073642"
+selection_fg = "#eee8d5"
+status_bg = "#586e75"
+status_fg = "#eee8d5"
+header_fg = "#268bd2"
+
+[mail]
+reply_from = "Timmy Douglas <mail@timmydouglas.com>"
+rules_mailbox_regex = "(?i)^inbox$"
+my_email_regex = "mail@timmydouglas\\.com|timmy@timmyd\\.info"
+
+[retention.trash]
+folder = "Trash"
+days = 30
+
+[account.personal]
+well_known_url = "https://mx.timmydouglas.com/.well-known/jmap"
+username = "timmy"
+password_command = "pass show timmydinfoimap"

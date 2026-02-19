@@ -47,3 +47,7 @@ url = "https://ln.ht/_/feed/~ddevault"
 [[feed]]
 name = "timmydouglas.com"
 url = "https://timmydouglas.com/post/index.xml"
+
+[[feed]]
+name = "Fabien Sanglard"
+url = "https://fabiensanglard.net/rss.xml"
