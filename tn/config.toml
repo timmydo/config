@@ -2,7 +2,7 @@
 page_size = 100
 mouse = true
 sync_interval_secs = 1000
-
+scrolloff=5
 browser = "flatpak run --env=MOZ_DBUS_REMOTE=1 org.mozilla.firefox --new-tab {url}"
 
 
