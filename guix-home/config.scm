@@ -145,39 +145,6 @@
     (description "Rust nightly binary")
     (license (list license:asl2.0 license:expat))))
 
-;; --- Custom Go Package: gofeed ---
-
-(define-public go-github-com-mmcdole-gofeed
-  (package
-    (name "go-github-com-mmcdole-gofeed")
-    (version "1.3.0")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/mmcdole/gofeed")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32
-         "03cmj4wk6yicv5pqxwa3sbqxxbw3srx2j5c9938yv0ydkccnlyhq"))))
-    (build-system go-build-system)
-    (arguments
-     '(#:import-path "github.com/mmcdole/gofeed"
-       #:tests? #f))
-    (propagated-inputs
-     (list go-github-com-puerkitobio-goquery
-           go-github-com-json-iterator-go
-           go-github-com-mmcdole-goxpp
-           go-golang-org-x-net
-           go-golang-org-x-text))
-    (home-page "https://github.com/mmcdole/gofeed")
-    (synopsis "Parse RSS, Atom and JSON feeds in Go")
-    (description "The gofeed library is a robust feed parser that supports
-parsing both RSS, Atom and JSON feeds.")
-    (license license:expat)))
-
-
 ;; --- Home Environment ---
 
 (home-environment
