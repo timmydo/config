@@ -173,7 +173,7 @@
                "wl-clipboard" "ydotool" "podman" "coreutils" "sed" "findutils"
                "inetutils" "ripgrep" "shepherd" "zstd" "pkg-config" "make"
                "sshfs" "which" "wget" "tar" "gzip" "iproute2" "file" "hugo"
-	       "postgresql"))))
+	       "postgresql" "bubblewrap" "udiskie"))))
 
  (services
   (append
@@ -213,7 +213,8 @@
                 ("copilot" . "node /home/timmy/npm/bin/copilot")
                 ("codex" . "node /home/timmy/npm/bin/codex --dangerously-bypass-approvals-and-sandbox")
                 ("dev" . "~/.config/dev.sh")
-                ("fixclaude" . "~/.config/guix-home/fix-claude.sh")))
+                ("fixclaude" . "~/.config/guix-home/fix-claude.sh")
+                ("z8sync" . "~/.config/guix-home/z8sync.sh")))
              (bashrc (list (local-file "/home/timmy/.config/guix-home/bashrc-extra.sh")))))
    (service home-zsh-service-type
             (home-zsh-configuration

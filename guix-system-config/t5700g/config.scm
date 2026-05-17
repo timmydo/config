@@ -15,7 +15,7 @@
              (nongnu system linux-initrd)
 	     )
 
-(use-service-modules base containers desktop networking ssh xorg networking)
+(use-service-modules base containers dbus desktop networking ssh xorg networking)
 (use-package-modules security-token file-systems)
 
 ;; Define FUSE udev rule
@@ -86,6 +86,9 @@
            (service openssh-service-type)
 	   (service elogind-service-type)
 	   ;;(service seatd-service-type)
+	   (service polkit-service-type)
+	   (service accountsservice-service-type)
+	   (service udisks-service-type)
 	   (service network-manager-service-type)
 	   (service wpa-supplicant-service-type)
 ;;	   (udev-rules-service 'fuse %fuse-udev-rule #:groups '("fuse"))

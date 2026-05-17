@@ -1,0 +1,9 @@
+program_options:
+  automount: true
+  notify: true
+  tray: false
+  event_hook: /home/timmy/.config/guix-home/import-z8.sh {event} {id_label} {mount_path}
+
+device_config:
+  - id_label: NIKON Z 8
+    automount: true
