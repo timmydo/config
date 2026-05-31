@@ -15,7 +15,7 @@
              (nongnu system linux-initrd)
 	     )
 
-(use-service-modules base containers dbus desktop networking ssh xorg networking)
+(use-service-modules avahi base containers dbus desktop networking ssh xorg networking)
 (use-package-modules security-token file-systems)
 
 ;; Define FUSE udev rule
@@ -84,6 +84,9 @@
                 ;;(subgids (list (subid-range (name "timmy") (start 100000) (count 65536))))
                 ;;(subuids (list (subid-range (name "timmy") (start 100000) (count 65536))))))
            (service openssh-service-type)
+	   ;; mDNS/zeroconf daemon — needed for PipeWire RAOP (AirPlay) discovery
+	   ;; of network speakers like the KEF LSX.
+	   (service avahi-service-type)
 	   (service elogind-service-type)
 	   ;;(service seatd-service-type)
 	   (service polkit-service-type)
