@@ -31,9 +31,10 @@ if [[ ! -d "$SRC" ]]; then
 fi
 
 mkdir -p "$DEST"
-files=("$SRC"/*.MOV)
+# Import both video (.MOV) and Nikon raw (.NEF) files.
+files=("$SRC"/*.MOV "$SRC"/*.NEF)
 if (( ${#files[@]} == 0 )); then
-  echo "No .MOV files in $SRC" >&2
+  echo "No .MOV or .NEF files in $SRC" >&2
   exit 0
 fi
 
