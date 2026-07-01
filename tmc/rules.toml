@@ -120,3 +120,11 @@ header = "From"
 regex = "(?i)(notifications@github\\.com|@noreply\\.github\\.com)"
 [rule.actions]
 move_to = "INBOX/github"
+
+[[rule]]
+name = "file spam"
+[rule.match]
+header = "X-Tmc-Spam-Verdict"
+regex = "spam"
+[rule.actions]
+move_to = "junk"

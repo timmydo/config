@@ -15,7 +15,7 @@
              (nongnu system linux-initrd)
 	     )
 
-(use-service-modules avahi base containers dbus desktop networking ssh xorg networking)
+(use-service-modules avahi base containers dbus desktop linux networking ssh xorg networking)
 (use-package-modules security-token file-systems)
 
 ;; Define FUSE udev rule
@@ -84,6 +84,19 @@
                 ;;(subgids (list (subid-range (name "timmy") (start 100000) (count 65536))))
                 ;;(subuids (list (subid-range (name "timmy") (start 100000) (count 65536))))))
            (service openssh-service-type)
+	   ;; Userspace early OOM killer — reacts before the kernel OOM
+	   ;; killer and before the system starts thrashing on swap.
+	   (service earlyoom-service-type
+		    (earlyoom-configuration
+		     (minimum-available-memory 5)   ; act at <5% free RAM
+		     (minimum-free-swap 5)))         ; and <5% free swap
+	   ;; Compressed RAM-backed swap. Preferred over disk swap so the
+	   ;; system can lean on compression before touching slower storage.
+	   (service zram-device-service-type
+		    (zram-device-configuration
+		     (size (* 16 (expt 1024 3)))   ; 16 GiB uncompressed ceiling
+		     (compression-algorithm 'zstd) ; better ratio than the lz4 default
+		     (priority 100)))              ; prefer zram over any other swap
 	   ;; mDNS/zeroconf daemon — needed for PipeWire RAOP (AirPlay) discovery
 	   ;; of network speakers like the KEF LSX.
 	   (service avahi-service-type)
