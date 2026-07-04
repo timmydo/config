@@ -208,7 +208,7 @@
                 ("ll" . "ls -l")
                 ("krmevicted" . "kubectl get po | grep Evicted| awk '{print $1}'| xargs -n 1 kubectl delete pod")
                 ("dfh" . "df -h -x squashfs -x tmpfs -x devtmpfs")
-                ("claude" . "/home/timmy/.local/bin/claude --allow-dangerously-skip-permissions")
+                ("claude" . "/home/timmy/.local/bin/claude")
                 ("gemini" . "node /home/timmy/npm/bin/gemini")
                 ("copilot" . "node /home/timmy/npm/bin/copilot")
                 ("codex" . "node /home/timmy/npm/bin/codex --dangerously-bypass-approvals-and-sandbox")
