@@ -1,7 +1,7 @@
 general {
-        output_format = "none"
+        output_format = "i3bar"
         colors = true
-        interval = 20
+        interval = 10
 }
 
 #order += "cpu_temperature 0"
@@ -29,7 +29,7 @@ tztime local {
 
 
 load {
-     format = "CPU %1min, %5min, %15min ]"
+     format = "CPU %1min, %5min, %15min"
 }
 
 cpu_temperature 0 {
@@ -38,13 +38,13 @@ cpu_temperature 0 {
 }
 
 memory {
-        format = "MEM %used/%total"
+        format = "MEM %percentage_used"
         threshold_degraded = "10%"
-        format_degraded = "FREE: %free"
+        format_degraded = "MEM %percentage_used (low)"
 }
 
 disk "/" {
-        format = "/ %free free"
+        format = "DISK %free free"
 }
 
 read_file uptime {
