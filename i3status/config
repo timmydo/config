@@ -38,9 +38,9 @@ cpu_temperature 0 {
 }
 
 memory {
-        format = "MEM %percentage_used"
+        format = "MEM %percentage_used used"
         threshold_degraded = "10%"
-        format_degraded = "MEM %percentage_used (low)"
+        format_degraded = "MEM %percentage_used used (low)"
 }
 
 disk "/" {
