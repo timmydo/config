@@ -33,3 +33,4 @@
     branches = branch -a
     stashes = stash list
     tags = tag -n1 --list
+    squash-in = !"f() { test -n \"$1\" || { echo 'usage: git squash-in <branch>' >&2; return 2; }; test -z \"$(git status --porcelain)\" || { echo 'refusing: working tree not clean' >&2; return 1; }; base=$(git merge-base HEAD \"$1\") || { echo \"no merge base with $1\" >&2; return 1; }; echo 'Commits to squash:'; git --no-pager log --oneline --reverse \"$base\"..\"$1\"; git merge --squash \"$1\" || echo 'merge --squash hit conflicts — resolve (git status), or bail: git reset --hard HEAD' >&2; git log --reverse --format=%B \"$base\"..\"$1\" > \"$(git rev-parse --git-dir)/SQUASH_MSG\"; echo; echo 'Message prefilled from branch commits. Review: git diff --cached | Commit: git commit | Bail: git reset --hard HEAD'; }; f"
