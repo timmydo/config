@@ -14,11 +14,19 @@ source ~/.profile
 #source ~/.cargo/env
 
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$HOME/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    source "$HOME/ssh-agent.env" >/dev/null
+# ssh-agent. An inherited SSH_AUTH_SOCK can name a dead agent's socket, so probe
+# it (ssh-add exits 2 when it cannot connect) rather than trusting a non-empty var.
+ssh_agent_live() {
+    [ -S "$SSH_AUTH_SOCK" ] || return 1
+    ssh-add -l >/dev/null 2>&1
+    [ $? -ne 2 ]
+}
+if ! ssh_agent_live; then
+    [ -r "$HOME/ssh-agent.env" ] && . "$HOME/ssh-agent.env" >/dev/null
+    if ! ssh_agent_live; then
+        ssh-agent > "$HOME/ssh-agent.env"
+        . "$HOME/ssh-agent.env" >/dev/null
+    fi
 fi
 
 # Load version control information
