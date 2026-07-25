@@ -14,19 +14,15 @@ source ~/.profile
 #source ~/.cargo/env
 
 
-# ssh-agent. An inherited SSH_AUTH_SOCK can name a dead agent's socket, so probe
-# it (ssh-add exits 2 when it cannot connect) rather than trusting a non-empty var.
-ssh_agent_live() {
-    [ -S "$SSH_AUTH_SOCK" ] || return 1
-    ssh-add -l >/dev/null 2>&1
-    [ $? -ne 2 ]
-}
-if ! ssh_agent_live; then
-    [ -r "$HOME/ssh-agent.env" ] && . "$HOME/ssh-agent.env" >/dev/null
-    if ! ssh_agent_live; then
-        ssh-agent > "$HOME/ssh-agent.env"
-        . "$HOME/ssh-agent.env" >/dev/null
-    fi
+# ssh-agent, pinned to a fixed socket path. Letting ssh-agent pick its own random
+# path bakes that path into every shell's environment, so when the agent restarts
+# every already-open terminal points at a socket that no longer exists and there
+# is no way to tell them the new one. ssh-add exits 2 when it cannot connect.
+export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
+ssh-add -l >/dev/null 2>&1
+if [ $? -eq 2 ]; then
+    rm -f "$SSH_AUTH_SOCK"
+    ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
 fi
 
 # Load version control information
