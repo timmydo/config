@@ -41,10 +41,6 @@ name = "Seattle Bike Blog"
 url = "https://www.seattlebikeblog.com/feed/"
 
 [[feed]]
-name = "SourceHut"
-url = "https://ln.ht/_/feed/~ddevault"
-
-[[feed]]
 name = "timmydouglas.com"
 url = "https://timmydouglas.com/post/index.xml"
 

@@ -7,6 +7,7 @@
 ;; guix home reconfigure ~/.config/guix-home/config.scm
 
 (use-modules (gnu home)
+             (gnu home services)
              (gnu home services guix)
              (guix channels)
              (gnu packages)
@@ -55,6 +56,19 @@
      (base32
       "11bzbil0crzq6p9jq3a78bz0g3hhdcwin8gxk2d6f6kzs63mgd41"))))
 
+;; Prebuilt static-musl std batteries (self-contained libc.a + crt objects) so a
+;; --target x86_64-unknown-linux-musl build links fully static with no external libc.
+(define rust-std-musl-nightly
+  (origin
+    (method url-fetch)
+    (uri (string-append
+          "https://static.rust-lang.org/dist/"
+          rust-nightly-date
+          "/rust-std-nightly-x86_64-unknown-linux-musl.tar.gz"))
+    (sha256
+     (base32
+      "0abjc649p546hf8cqz8lvyb543flw7j1jzyg3ypln4smpbhzljyj"))))
+
 (define-public rust-nightly
   (package
     (name "rust-nightly")
@@ -85,12 +99,25 @@
             (lambda* (#:key inputs #:allow-other-keys)
               (let ((rust-src (assoc-ref inputs "rust-src")))
                 (invoke "tar" "-xf" rust-src))))
+          ;; Extract the musl std BEFORE patch-source-shebangs so its install.sh
+          ;; `/usr/bin/env bash` shebang gets patched; extracting it in the install
+          ;; phase (post-patch) leaves an unresolvable interpreter → execvp 127.
+          (add-after 'unpack-rust-src 'unpack-musl-std
+            (lambda* (#:key inputs #:allow-other-keys)
+              (let ((musl-std (assoc-ref inputs "rust-std-musl")))
+                (invoke "tar" "-xf" musl-std))))
           (replace 'install
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (let ((out (assoc-ref outputs "out")))
                 (invoke "./install.sh"
                         (string-append "--prefix=" out)
                         "--components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu,rustfmt-preview,clippy-preview")
+                ;; Add the static-musl std target so rustc can build fully-static musl binaries.
+                (chdir "rust-std-nightly-x86_64-unknown-linux-musl")
+                (invoke "./install.sh"
+                        (string-append "--prefix=" out)
+                        "--components=rust-std-x86_64-unknown-linux-musl")
+                (chdir "..")
                 (chdir "rust-src-nightly")
                 (invoke "./install.sh"
                         (string-append "--prefix=" out)
@@ -117,6 +144,9 @@
                  (lambda (file)
                    (when (and (file-exists? file)
                               (not (file-is-directory? file))
+                              ;; musl self-contained/*.o are ET_REL objects;
+                              ;; patchelf refuses them ("wrong ELF type"). Skip.
+                              (not (string-suffix? ".o" file))
                               (elf-file? file))
                      (invoke "patchelf" "--set-rpath" rpath file)
                      (unless (string-contains file ".so")
@@ -137,7 +167,8 @@
                   `("RUSTFLAGS" " " suffix (,(string-append "-C link-arg=-Wl,-rpath," lib-path))))))))))
     (native-inputs
      `(("patchelf" ,patchelf)
-       ("rust-src" ,rust-src-nightly)))
+       ("rust-src" ,rust-src-nightly)
+       ("rust-std-musl" ,rust-std-musl-nightly)))
     (inputs
      (list gcc-toolchain zlib))
     (home-page "https://www.rust-lang.org")
@@ -178,6 +209,16 @@
  (services
   (append
    (list
+   ;; td's stage0 resolves its seed toolchain from PATH, taking `cc' ahead of
+   ;; `gcc': that finds clang-toolchain's clang, which records no RUNPATH for
+   ;; the libgcc_s.so.1 rustc asks for, so host build scripts fail to load
+   ;; under stage0's cleared environment. Name both toolchains instead. Also
+   ;; TD_RUST_HOME, not just TD_CC_HOME: stage0 searches the rust bin dir
+   ;; before the cc one, and the profile's bin has clang's `cc'.
+   (simple-service 'td-toolchain-env
+                   home-environment-variables-service-type
+                   `(("TD_RUST_HOME" . ,(file-append rust-nightly))
+                     ("TD_CC_HOME" . ,(file-append gcc-toolchain))))
    (service home-channels-service-type
             (list (channel
                    (name 'guix)
