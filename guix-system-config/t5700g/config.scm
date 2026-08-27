@@ -61,7 +61,7 @@
            (group "users")
            (home-directory "/home/timmy")
            (supplementary-groups
-            '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "fuse")))
+            '("wheel" "netdev" "audio" "video" "input" "libvirt" "kvm" "plugdev" "fuse" "cgroup")))
 
 	  (user-account
            (name "test")
@@ -79,10 +79,19 @@
   (services
     (append
      (list
-	   ;;(service rootless-podman-service-type
-              ;;(rootless-podman-configuration
-                ;;(subgids (list (subid-range (name "timmy") (start 100000) (count 65536))))
-                ;;(subuids (list (subid-range (name "timmy") (start 100000) (count 65536))))))
+	   (service rootless-podman-service-type
+              (rootless-podman-configuration
+               ;; Guix reserves the preceding 65536 IDs for root.
+               (subgids
+                (list (subid-range
+                       (name "timmy")
+                       (start 165536)
+                       (count 65536))))
+               (subuids
+                (list (subid-range
+                       (name "timmy")
+                       (start 165536)
+                       (count 65536))))))
            (service openssh-service-type)
 	   ;; Userspace early OOM killer — reacts before the kernel OOM
 	   ;; killer and before the system starts thrashing on swap.
@@ -101,6 +110,16 @@
 	   ;; of network speakers like the KEF LSX.
 	   (service avahi-service-type)
 	   (service elogind-service-type)
+	   ;; Keep the test user's elogind session active even when not logged in.
+	   (simple-service 'test-linger activation-service-type
+	     #~(begin
+	         (for-each (lambda (directory)
+	                     (unless (file-exists? directory)
+	                       (mkdir directory)))
+	                   '("/var/lib/elogind" "/var/lib/elogind/linger"))
+	         (unless (file-exists? "/var/lib/elogind/linger/test")
+	           (close-port
+	            (open-output-file "/var/lib/elogind/linger/test")))))
 	   ;;(service seatd-service-type)
 	   (service polkit-service-type)
 	   (service accountsservice-service-type)
