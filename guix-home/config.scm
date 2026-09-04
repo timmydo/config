@@ -369,7 +369,7 @@ host browser can return the OAuth callback to the application.")
 
 ;; --- Custom Rust Nightly Definition ---
 
-(define rust-nightly-date "2025-10-03")
+(define rust-nightly-date "2026-07-23")
 
 (define rust-src-nightly
   (origin
@@ -380,7 +380,7 @@ host browser can return the OAuth callback to the application.")
           "/rust-src-nightly.tar.xz"))
     (sha256
      (base32
-      "11bzbil0crzq6p9jq3a78bz0g3hhdcwin8gxk2d6f6kzs63mgd41"))))
+      "1m2dql4c31af6kmdpag39cs2cl7gyi6sg6m7v2s6nvsjzhw2zf81"))))
 
 ;; Prebuilt static-musl std batteries (self-contained libc.a + crt objects) so a
 ;; --target x86_64-unknown-linux-musl build links fully static with no external libc.
@@ -393,7 +393,7 @@ host browser can return the OAuth callback to the application.")
           "/rust-std-nightly-x86_64-unknown-linux-musl.tar.gz"))
     (sha256
      (base32
-      "0abjc649p546hf8cqz8lvyb543flw7j1jzyg3ypln4smpbhzljyj"))))
+      "04b314vfdjb746gg7abdg31m0fmxwqrnzv5rc7qvzzc0nvpf2gyg"))))
 
 (define-public rust-nightly
   (package
@@ -408,7 +408,7 @@ host browser can return the OAuth callback to the application.")
              "/rust-nightly-x86_64-unknown-linux-gnu.tar.gz"))
        (sha256
         (base32
-         "1ww9mpcp314q4nk7ykp2blkvw66zmiy4c01v02fg0asrdh17vspr"))))
+         "1zqj7rs03917mhv2rw7z9p8j5vpxh61lgbnmw1m1bc746ilvcm19"))))
     (build-system gnu-build-system)
     (arguments
      (list
@@ -485,12 +485,13 @@ host browser can return the OAuth callback to the application.")
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (let* ((out (assoc-ref outputs "out"))
                      (gcc-toolchain (assoc-ref inputs "gcc-toolchain"))
-                     (lib-path (string-append gcc-toolchain "/lib")))
+                     (lib-path (string-append gcc-toolchain "/lib"))
+                     (gcc-bin (string-append gcc-toolchain "/bin/gcc")))
                 (wrap-program (string-append out "/bin/rustc")
                   `("LIBRARY_PATH" ":" suffix (,lib-path)))
                 (wrap-program (string-append out "/bin/cargo")
                   `("LIBRARY_PATH" ":" suffix (,lib-path))
-                  `("RUSTFLAGS" " " suffix (,(string-append "-C link-arg=-Wl,-rpath," lib-path))))))))))
+                  `("RUSTFLAGS" " " suffix (,(string-append "-C linker=" gcc-bin " -C link-arg=-Wl,-rpath," lib-path))))))))))
     (native-inputs
      `(("patchelf" ,patchelf)
        ("rust-src" ,rust-src-nightly)

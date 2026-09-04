@@ -3,6 +3,7 @@
 ;; /run/privileged/bin/sudo guix system reconfigure ~/.config/guix-system-config/t5700g/config.scm
 
 (use-modules (gnu)
+	     (gnu packages base)          ;; glibc, for the /lib64 ELF interpreter
 	     (gnu packages mail)
 	     (gnu packages shells)
 	     (gnu services mail)
@@ -79,6 +80,11 @@
   (services
     (append
      (list
+	   ;; Foreign x86-64 binaries (e.g. the Claude Code native build)
+	   ;; hardcode /lib64/ld-linux-x86-64.so.2 as their ELF interpreter.
+	   ;; Point it at the system glibc so it follows upgrades.
+	   (extra-special-file "/lib64/ld-linux-x86-64.so.2"
+			       (file-append glibc "/lib/ld-linux-x86-64.so.2"))
 	   (service rootless-podman-service-type
               (rootless-podman-configuration
                ;; Guix reserves the preceding 65536 IDs for root.
